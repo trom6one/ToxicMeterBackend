@@ -66,7 +66,7 @@ const clientId = 'cu6xkebsgerd6ikki3cq08ov1koygc';
 ////////////////////////
 
 app.set('port', (process.env.PORT || 5000))
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname)) // __dirname + '/public'
 
 app.use(function (req, res, next) {
 
