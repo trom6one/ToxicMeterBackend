@@ -172,7 +172,7 @@ function changeAmount(req) {
     let lastAmount = currentAmount;
 
     let viewersCount = vievewsCounts[channelId];
-    let changeValue = viewersCount > 1 ? (1 / viewersCount).toFixed(5) : 0.5; 
+    let changeValue = viewersCount > 1 ? (1 / (viewersCount / 20)).toFixed(5) : 0.5; // 1 / (4000 / 20)
 
     currentAmount = Math.min(Math.max(parseFloat(currentAmount) + parseFloat(changeValue), 0), parseInt(maxAmount));
   
