@@ -35,7 +35,7 @@ const channelAmounts = {};
 const vievewsCounts = {};
 let userCooldowns = {};
 
-var timerIsActive = false;
+var timerIsActive = {};
 
 const STRINGS = {
   secretEnv: usingValue('secret'),
@@ -107,6 +107,10 @@ app.get('/obs-overlay/:channel', function(req , res){
 app.get('/amounts', function(req, res) {
     res.send(channelAmounts);
   })
+
+  app.get('/timers', function(req, res) {
+      res.send(timerIsActive);
+    })
 
 app.get('/cooldowns', function(req, res) {
     res.send(userCooldowns);
@@ -185,8 +189,10 @@ function changeAmount(req) {
     // Broadcast the color change to all other extension instances on this channel.
     attemptAmountBroadcast(channelId);
   
-    if (!timerIsActive){
-      timerIsActive = true;
+    var timer = timerIsActive[channelId] || false;
+
+    if (!timer){
+      timerIsActive[channelId] = true;
       initAmountTimer(channelId);
     }
     
@@ -341,7 +347,7 @@ function makeServerToken(channelId) {
     // console.log(`Amount (decreased) = ` + channelAmounts[channelId]);
   
     if(channelAmounts[channelId] == 0){
-      timerIsActive = false;
+      timerIsActive[channelId] = false;
     }
     else{
       initAmountTimer(channelId);
