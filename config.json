@@ -1,0 +1,21 @@
+{
+    "channels":{
+        "0":{
+            "data":{
+                "broadcast_cooldown": "0",
+                "decrease_cooldown": "false",
+                "viewers": "0",
+                "amount": "0"
+            },
+            "info":{
+                "name": "0"
+            },
+            "config":{
+                
+            }    
+        }
+    },
+    "users_cooldown":{
+        "0":"0"
+    }
+}

@@ -1,20 +1,13 @@
 var express = require('express')
 var app = express()
 
-////////////////////////
 
 const Boom = require('boom');
-// const color = require('color');
 const ext = require('commander');
 const jsonwebtoken = require('jsonwebtoken');
 const request = require('request');
 const bodyParser = require('body-parser');
 
-// The developer rig uses self-signed certificates.  Node doesn't accept them
-// by default.  Do not use this in production.
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
-// Use verbose logging during development.  Set this to false for production.
 const verboseLogging = true;
 const verboseLog = verboseLogging ? console.log.bind(console) : () => { };
 
@@ -26,16 +19,15 @@ const bearerPrefix = 'Bearer ';             // HTTP authorization headers have t
 const feedbackFormsURL = 'https://forms.gle/aXyuymYT9yZcjGLBA';
 
 const initialAmount = 0;
-var maxAmount = 100;
-var amountLiveTime = 15000;
-var userCooldownMs = 1000;
+const maxAmount = 100;
+const amountLiveTime = 5000;
+const userCooldownMs = 1000;
 
-const channelCooldowns = {};
-const channelAmounts = {};
-const vievewsCounts = {};
+let channelCooldowns = {};
+let channelAmounts = {};
+let vievewsCounts = {};
 let userCooldowns = {};
-
-var timerIsActive = {};
+let timerIsActive = {};
 
 const STRINGS = {
   secretEnv: usingValue('secret'),
@@ -57,13 +49,13 @@ const STRINGS = {
   invalidJwt: 'Invalid JWT',
 };
 
-////////////////////////
+///
 
 const ownerId = 'trom666one';
 const secret = Buffer.from('//pilJ5gU4baX2atR1gx+o2zhdqXVqMC8eDwHFiLbII=', 'base64');
 const clientId = 'cu6xkebsgerd6ikki3cq08ov1koygc';
 
-////////////////////////
+///
 
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname)) // __dirname + '/public'
@@ -147,11 +139,11 @@ setInterval(() => { userCooldowns = {}; }, userCooldownClearIntervalMs);
 
 // function changeMaxAmount(req){
 //   const payload = verifyAndDecode(req.headers.authorization);
-//   //console.log(payload);
+//   console.log(payload);
 //   const { channel_id: channelId, user_id: userId } = payload;
 //
 //   if(userId == channelId){
-//     // console.log('opaque_user_id == channel_id');
+//     console.log('opaque_user_id == channel_id');
 //     console.log("req.data = " + req.headers);
 //     maxAmount = parseInt(req.data);
 //     console.log("maxAmount = " + parseInt(maxAmount));
