@@ -39,7 +39,8 @@ let channelCooldowns = {};
 let channelAmounts = {};
 let vievewsCounts = {};
 let userCooldowns = {};
-let decreaseTimerIsActive = {};
+let decreaseTimer = {};
+let decreaseTimerActive = {};
 
 ///
 
@@ -112,7 +113,7 @@ app.get('/amounts', function(req, res) {
 })
 
 app.get('/timers', function(req, res) {
-    res.send(decreaseTimerIsActive);
+    res.send(decreaseTimer);
 })
 
 app.get('/cooldowns', function(req, res) {
@@ -171,23 +172,25 @@ function changeAmount(req) {
   currentAmount = Math.min(Math.max(parseFloat(currentAmount) + parseFloat(changeValue), 0), parseInt(maxAmount));
 
   // Save the new color for the channel.
-  channelAmounts[channelId] = currentAmount;
+  channelAmounts[channelId] = currentAmount.toFixed(1);
 
   // Broadcast the color change to all other extension instances on this channel.
   attemptAmountBroadcast(channelId);
 
-  var decreaseTimer = decreaseTimerIsActive[channelId] || false;
+  // var timer = decreaseTimer[channelId] || false;
 
-  if (!decreaseTimer){
-    decreaseTimerIsActive[channelId] = true;
-    initDecreaseAmountTimer(channelId);
+  // if (!timer){
+  //   decreaseTimer[channelId] = true;
+  //   initDecreaseAmountTimer(channelId);
+  // }
+
+  decreaseTimer[channelId] = 10000;
+  var timerActive = decreaseTimerActive[channelId] || false;
+  if (!timerActive){
+    decreaseTimerActive[channelId] = true;
+    initDecreaseAmountTimer(channelId, 10);
   }
 
-
-
-
-
-  
   return currentAmount;
 }
 
@@ -371,23 +374,17 @@ function userIsInCooldown(opaqueUserId) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-///
-///
-///
-
-async function initDecreaseAmountTimer(channelId) {
-  await sleep(parseInt(amountLiveTime));
-  decreaseAmount(channelId);
+async function initDecreaseAmountTimer(channelId, ms) {
+  let timer = decreaseTimer[channelId];
+  await sleep(ms);
+  if(timer <= 0){
+    decreaseAmount(channelId);
+  }
+  else{
+    timer-=ms;
+    decreaseTimer[channelId] = timer;
+    initDecreaseAmountTimer(channelId);
+  }
 }
 
 function sleep(ms) {
@@ -397,18 +394,54 @@ function sleep(ms) {
 }   
 
 function decreaseAmount(channelId){
-  channelAmounts[channelId] = Math.min(Math.max(parseFloat(channelAmounts[channelId]) - 0.1, 0), parseInt(maxAmount));
-
-  console.log(`Amount (decreased) = ` + channelAmounts[channelId]);
+  channelAmounts[channelId] = Math.min(Math.max(
+    parseFloat(channelAmounts[channelId]) - 0.1, 0), parseInt(maxAmount));
 
   if(channelAmounts[channelId] == 0){
-    decreaseTimerIsActive[channelId] = false;
+    decreaseTimerActive[channelId] = false;
   }
   else{
-    initDecreaseAmountTimer(channelId);
+    initDecreaseAmountTimer(channelId, 1000);
   }
   attemptAmountBroadcast(channelId);
 }
+
+
+
+
+
+
+
+
+
+///
+///
+///
+
+// async function initDecreaseAmountTimer(channelId) {
+//   await sleep(parseInt(amountLiveTime));
+//   decreaseAmount(channelId);
+// }
+
+// function sleep(ms) {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, ms);
+//   });
+// }   
+
+// function decreaseAmount(channelId){
+//   channelAmounts[channelId] = Math.min(Math.max(parseFloat(channelAmounts[channelId]) - 0.1, 0), parseInt(maxAmount));
+
+//   //console.log(`Amount (decreased) = ` + channelAmounts[channelId]);
+
+//   if(channelAmounts[channelId] == 0){
+//     decreaseTimer[channelId] = false;
+//   }
+//   else{
+//     initDecreaseAmountTimer(channelId);
+//   }
+//   attemptAmountBroadcast(channelId);
+// }
 
 ///
 ///
