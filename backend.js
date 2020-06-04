@@ -30,7 +30,7 @@ const feedbackFormsURL = 'https://forms.gle/aXyuymYT9yZcjGLBA';
 const initialAmount = 0;
 const maxAmount = 100;
 const amountDecreaseTimer = 10000;
-const amountLiveTime = 5000; // 5000
+const amountLiveTime = 1000; // 5000
 const userCooldownMs = 1000;
 
 ///
@@ -397,7 +397,7 @@ function sleep(ms) {
 }   
 
 function decreaseAmount(channelId){
-  channelAmounts[channelId] = Math.min(Math.max(parseFloat(channelAmounts[channelId]) - 0.5, 0), parseInt(maxAmount));
+  channelAmounts[channelId] = Math.min(Math.max(parseFloat(channelAmounts[channelId]) - 0.1, 0), parseInt(maxAmount));
 
   console.log(`Amount (decreased) = ` + channelAmounts[channelId]);
 
