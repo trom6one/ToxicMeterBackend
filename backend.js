@@ -29,6 +29,7 @@ const feedbackFormsURL = 'https://forms.gle/aXyuymYT9yZcjGLBA';
 
 const initialAmount = 0;
 const maxAmount = 100;
+const amountDecreaseTimer = 10000;
 const amountLiveTime = 1000; // 5000
 const userCooldownMs = 1000;
 
@@ -108,19 +109,19 @@ app.get('/obs-overlay/:channel', function(req , res){
 
 app.get('/amounts', function(req, res) {
     res.send(channelAmounts);
-  })
+})
 
-  app.get('/timers', function(req, res) {
-      res.send(decreaseTimerIsActive);
-    })
+app.get('/timers', function(req, res) {
+    res.send(decreaseTimerIsActive);
+})
 
 app.get('/cooldowns', function(req, res) {
     res.send(userCooldowns);
-  })
+})
 
 app.get('/viewers', function(req, res) {
     res.send(vievewsCounts);
-  })
+})
   
 app.get('/fill/query', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -179,9 +180,9 @@ function changeAmount(req) {
   // Broadcast the color change to all other extension instances on this channel.
   attemptAmountBroadcast(channelId);
 
-  // var decreaseTimer = decreaseTimerIsActive[channelId] || false;
+  var decreaseTimer = decreaseTimerIsActive[channelId] || false;
 
-  if (!decreaseTimerIsActive[channelId] || false){
+  if (!decreaseTimer){
     decreaseTimerIsActive[channelId] = true;
     initDecreaseAmountTimer(channelId);
   }
@@ -272,6 +273,26 @@ function sendAmountBroadcast(channelId) {
 ///
 ///
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///
+///
+///
+
 function getAmount(req) {
   // Verify all requests.
   const payload = verifyAndDecode(req.headers.authorization);
@@ -286,6 +307,27 @@ function getAmount(req) {
 ///
 ///
 ///
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///
+///
+///
+
 
 // Create and return a JWT for use by this service.
 function makeServerToken(channelId) {
@@ -318,6 +360,13 @@ function userIsInCooldown(opaqueUserId) {
   return false;
 }
  
+///
+///
+///
+
+
+
+
 
 
 
@@ -347,16 +396,6 @@ function sleep(ms) {
 }   
 
 function decreaseAmount(channelId){
-
-  // let viewersCount = vievewsCounts[channelId];
-  // let changeValue = viewersCount > 1 ? 
-  //                     (1 / viewersCount).toFixed(5) : 
-  //                     1.0;
-  // currentAmount = Math.min(
-  //                   Math.max(
-  //                     parseFloat(currentAmount) + parseFloat(changeValue), 
-  //                       0), parseInt(maxAmount));
-
   let decreaseMultiplier = 2;
   let changeValue = viewersCount > 1 ? ((1 / viewersCount) * decreaseMultiplier).toFixed(5) : 1.0;
 
