@@ -399,12 +399,9 @@ function decreaseAmount(channelId){
   let decreaseMultiplier = 2;
   let changeValue = viewersCount > 1 ? ((1 / viewersCount) * decreaseMultiplier).toFixed(5) : 1.0;
 
-  channelAmounts[channelId] = Math.min(
-                                Math.max(
-                                  parseFloat(channelAmounts[channelId]) - changeValue, 
-                                    0), parseInt(maxAmount));
+  channelAmounts[channelId] = Math.min(Math.max(parseFloat(channelAmounts[channelId]) - parseFloat(changeValue), 0), parseInt(maxAmount));
 
-  // console.log(`Amount (decreased) = ` + channelAmounts[channelId]);
+  console.log(`Amount (decreased) = ` + channelAmounts[channelId]);
 
   if(channelAmounts[channelId] == 0){
     decreaseTimerIsActive[channelId] = false;
