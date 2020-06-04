@@ -375,7 +375,7 @@ function userIsInCooldown(opaqueUserId) {
 
 
 async function initDecreaseAmountTimer(channelId, ms) {
-  let timer = decreaseTimer[channelId];
+  var timer = decreaseTimer[channelId];
   console.log(timer); ///
   await sleep(parseInt(ms));
   if(timer <= 0){
