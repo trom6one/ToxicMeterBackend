@@ -158,6 +158,8 @@ function changeAmount(req) {
   const { channel_id: channelId, opaque_user_id: opaqueUserId } = payload;
 
   let currentAmount = channelAmounts[channelId] || parseInt(initialAmount);
+  
+  decreaseTimer[channelId] = 10000;
 
   // Bot abuse prevention:  don't allow a user to spam the button.
   if (userIsInCooldown(opaqueUserId)) {
@@ -376,7 +378,7 @@ function userIsInCooldown(opaqueUserId) {
 
 async function initDecreaseAmountTimer(channelId, ms) {
   var timer = decreaseTimer[channelId];
-  console.log(timer); ///
+  //console.log(timer); ///
   await sleep(parseInt(ms));
   if(timer <= 0){
     decreaseAmount(channelId);
