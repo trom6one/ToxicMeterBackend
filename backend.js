@@ -382,6 +382,7 @@ async function initDecreaseAmountTimer(channelId, ms) {
   }
   else{
     timer-=ms;
+    console.log(timer); ///
     decreaseTimer[channelId] = timer;
     initDecreaseAmountTimer(channelId);
   }
