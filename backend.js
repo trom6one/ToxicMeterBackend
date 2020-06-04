@@ -165,14 +165,10 @@ function changeAmount(req) {
     return;
   }
   
-  ///
+
   let viewersCount = vievewsCounts[channelId];
-  let changeValue = viewersCount > 1 ? 
-                      (1 / viewersCount).toFixed(5) : 1.0;
-  currentAmount = Math.min(
-                    Math.max(
-                      parseFloat(currentAmount) + parseFloat(changeValue), 
-                        0), parseInt(maxAmount));
+  let changeValue = viewersCount > 1 ? (1 / viewersCount).toFixed(5) : 1; // 1 / (4000 / 20)
+  currentAmount = Math.min(Math.max(parseFloat(currentAmount) + parseFloat(changeValue), 0), parseInt(maxAmount));
 
   // Save the new color for the channel.
   channelAmounts[channelId] = currentAmount;
@@ -186,6 +182,11 @@ function changeAmount(req) {
     decreaseTimerIsActive[channelId] = true;
     initDecreaseAmountTimer(channelId);
   }
+
+
+
+
+
   
   return currentAmount;
 }
@@ -396,10 +397,7 @@ function sleep(ms) {
 }   
 
 function decreaseAmount(channelId){
-  let decreaseMultiplier = 2;
-  let changeValue = viewersCount > 1 ? ((1 / viewersCount) * decreaseMultiplier).toFixed(5) : 1.0;
-
-  channelAmounts[channelId] = Math.min(Math.max(parseFloat(channelAmounts[channelId]) - parseFloat(changeValue), 0), parseInt(maxAmount));
+  channelAmounts[channelId] = Math.min(Math.max(parseFloat(channelAmounts[channelId]) - 0.5, 0), parseInt(maxAmount));
 
   console.log(`Amount (decreased) = ` + channelAmounts[channelId]);
 
