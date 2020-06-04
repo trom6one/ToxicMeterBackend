@@ -384,7 +384,7 @@ async function initDecreaseAmountTimer(channelId, ms) {
   else{
     timer-=parseInt(ms);
     decreaseTimer[channelId] = timer;
-    initDecreaseAmountTimer(channelId);
+    initDecreaseAmountTimer(channelId, 10);
   }
 }
 
