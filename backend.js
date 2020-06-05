@@ -99,6 +99,11 @@ app.use(bodyParser.json());
 ///
 ///
 
+
+///
+///
+///
+
 app.get('/', function(req, res) {
     res.redirect(feedbackFormsURL);
 })
@@ -134,11 +139,11 @@ app.post('/fill/amount', function(req, res) {
 
 
 
-var channelsData = require('/channelsData.json');
 
 // const fs = require('fs');
 // let channelsData = fs.readFileSync('channelsData.json', 'utf8');
 
+// var channelsData = require('/channelsData.json');
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
@@ -150,26 +155,26 @@ app.listen(app.get('port'), function() {
   // decreaseTimer = JSON.parse(channelsData)["decreaseTimer"] || {};
   // decreaseTimerActive = JSON.parse(channelsData)["decreaseTimerActive"] || {};
 
-  channelCooldowns = channelsData.channelCooldowns || {};
-  channelAmounts = channelsData.channelAmounts || {};
-  vievewsCounts = channelsData.vievewsCounts || {};
-  userCooldowns = channelsData.userCooldowns || {};
-  decreaseTimer = channelsData.decreaseTimer || {};
-  decreaseTimerActive = channelsData.decreaseTimerActive || {};
+  // channelCooldowns = channelsData.channelCooldowns || {};
+  // channelAmounts = channelsData.channelAmounts || {};
+  // vievewsCounts = channelsData.vievewsCounts || {};
+  // userCooldowns = channelsData.userCooldowns || {};
+  // decreaseTimer = channelsData.decreaseTimer || {};
+  // decreaseTimerActive = channelsData.decreaseTimerActive || {};
 })
 
 ///
 ///
 ///
 
-process.on('exit', function() {
-  channelsData.channelCooldowns = channelCooldowns;
-  channelsData.channelAmounts = channelAmounts;
-  channelsData.vievewsCounts = vievewsCounts;
-  channelsData.userCooldowns = userCooldowns;
-  channelsData.decreaseTimer = decreaseTimer;
-  channelsData.decreaseTimerActive = decreaseTimerActive;
-});
+// process.on('exit', function() {
+//   channelsData.channelCooldowns = channelCooldowns;
+//   channelsData.channelAmounts = channelAmounts;
+//   channelsData.vievewsCounts = vievewsCounts;
+//   channelsData.userCooldowns = userCooldowns;
+//   channelsData.decreaseTimer = decreaseTimer;
+//   channelsData.decreaseTimerActive = decreaseTimerActive;
+// });
 
 ///
 ///
