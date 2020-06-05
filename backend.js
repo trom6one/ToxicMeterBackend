@@ -144,36 +144,27 @@ app.post('/fill/amount', function(req, res) {
 
    
 
-// var jsonData = require(__dirname + '/channelsData.json');
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 
-  readDataFromFile();
+  // readDataFromFile();
 
   initDataSaveTimer(10000);
 });
 
-// console.log(jsonData.Test_Session.test_SessionID[0].DataURL);
-
-// var dataReaded = false;
-function readDataFromFile() {
-  fs.readFile(__dirname + '/channelsData.json', 'utf-8', function(err, data) { 
-    // console.log(`data = ${data}`);
-    // console.log(`JSON.parse(data)['channelAmounts'] = ${JSON.parse(data)['channelAmounts']}`);
-      channelAmounts = JSON.parse(data)['channelAmounts'];
-      vievewsCounts = JSON.parse(data)['vievewsCounts'];
-      userCooldowns = JSON.parse(data)['userCooldowns'];
-      decreaseTimer = JSON.parse(data)['decreaseTimer'];
-      decreaseTimerActive = JSON.parse(data)['decreaseTimerActive'];
-      channelCooldowns = JSON.parse(data)['channelCooldowns'];
-  });  
-    // console.log(`data = ${JSON.stringify(jsonData)}`);
-
-    // if(!dataReaded){
-    //   dataReaded = true;
-    // }
-}
+// function readDataFromFile() {
+//   fs.readFile(__dirname + '/channelsData.json', 'utf-8', function(err, data) { 
+//     // console.log(`data = ${data}`);
+//     // console.log(`JSON.parse(data)['channelAmounts'] = ${JSON.parse(data)['channelAmounts']}`);
+//       channelAmounts = JSON.parse(data)['channelAmounts'];
+//       vievewsCounts = JSON.parse(data)['vievewsCounts'];
+//       userCooldowns = JSON.parse(data)['userCooldowns'];
+//       decreaseTimer = JSON.parse(data)['decreaseTimer'];
+//       decreaseTimerActive = JSON.parse(data)['decreaseTimerActive'];
+//       channelCooldowns = JSON.parse(data)['channelCooldowns'];
+//   });
+// }
 
 
 async function initDataSaveTimer(ms) {
