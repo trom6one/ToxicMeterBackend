@@ -36,12 +36,12 @@ const userCooldownMs = 1000;
 
 ///
 
-let channelCooldowns = {};
-let channelAmounts = {};
-let vievewsCounts = {};
-let userCooldowns = {};
-let decreaseTimer = {};
-let decreaseTimerActive = {};
+var channelCooldowns = {};
+var channelAmounts = {};
+var vievewsCounts = {};
+var userCooldowns = {};
+var decreaseTimer = {};
+var decreaseTimerActive = {};
 
 ///
 
@@ -119,6 +119,10 @@ app.get('/channels', function(req, res) {
     res.sendFile(__dirname + '/channelsData.json');
 })
 
+app.get('/viewers', function(req, res) {
+    res.send(vievewsCounts);
+})
+
 app.get('/fill/query', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   let value = getAmount(req);
@@ -145,21 +149,23 @@ app.post('/fill/amount', function(req, res) {
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 
-  // fs.readFile(__dirname + '/channelsData.json', (err, data) => {
-  //   if (err) throw err;
-  //   let readedJson = JSON.parse(data);
-  //   console.log(`readedJson['channelAmounts'] = ${JSON.stringify(readedJson['channelAmounts'])}`);
-  //   channelCooldowns = JSON.stringify(readedJson['channelCooldowns']);
-  //   channelAmounts = JSON.stringify(readedJson['channelAmounts']);
-  //   vievewsCounts = JSON.stringify(readedJson['vievewsCounts']);
-  //   userCooldowns = JSON.stringify(readedJson['userCooldowns']);
-  //   decreaseTimer = JSON.stringify(readedJson['decreaseTimer']);
-  //   decreaseTimerActive = JSON.stringify(readedJson['decreaseTimerActive']);
-  // });
-
+  readDataFromFile();
   initDataSaveTimer(10000);
 });
 
+async function readDataFromFile() {
+  fs.readFile(__dirname + '/channelsData.json', (err, data) => {
+    if (err) throw err;
+    let readedJson = JSON.parse(data);
+    console.log(`readedJson['channelAmounts'] = ${JSON.stringify(readedJson['channelAmounts'])}`);
+    channelCooldowns = JSON.stringify(readedJson['channelCooldowns']);
+    channelAmounts = JSON.stringify(readedJson['channelAmounts']);
+    vievewsCounts = JSON.stringify(readedJson['vievewsCounts']);
+    userCooldowns = JSON.stringify(readedJson['userCooldowns']);
+    decreaseTimer = JSON.stringify(readedJson['decreaseTimer']);
+    decreaseTimerActive = JSON.stringify(readedJson['decreaseTimerActive']);
+  });
+}
 
 
 async function initDataSaveTimer(ms) {
@@ -174,12 +180,12 @@ async function initDataSaveTimer(ms) {
     "channelCooldowns": {}
   }
 
-  tmpJson.channelCooldowns = channelCooldowns;
   tmpJson.channelAmounts = channelAmounts;
   tmpJson.vievewsCounts = vievewsCounts;
   tmpJson.userCooldowns = userCooldowns;
   tmpJson.decreaseTimer = decreaseTimer;
   tmpJson.decreaseTimerActive = decreaseTimerActive;
+  tmpJson.channelCooldowns = channelCooldowns;
 
   fs.writeFile(__dirname + '/channelsData.json', JSON.stringify(tmpJson), err => {
     if (err) {
