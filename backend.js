@@ -270,9 +270,10 @@ function changeAmount(req, value) {
 
   let currentAmount = channelAmounts[channelId] || parseInt(initialAmount);
   
-  if(parseInt(value) > 0){
+  // TODO Удалить проверку и добавлять всегда
+  // if(parseInt(value) > 0){
     decreaseTimer[channelId] = 10000;
-  }
+  // }
 
   // Bot abuse prevention:  don't allow a user to spam the button.
   if (userIsInCooldown(opaqueUserId)) {
