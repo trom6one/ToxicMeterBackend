@@ -162,7 +162,7 @@ function readDataFromFile() {
     console.log(`data = ${data}`);
     console.log(`JSON.stringify(data)['channelAmounts'] = ${JSON.stringify(data)['channelAmounts']}`);
 
-  }); 
+  });  
     // console.log(`data = ${JSON.stringify(jsonData)}`);
 
     // if(!dataReaded){
