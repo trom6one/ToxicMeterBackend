@@ -116,11 +116,7 @@ app.get('/obs-overlay/:channel', function(req , res){
   res.sendFile(__dirname + '/obs-overlay.html', {channel: channel});
 })
 
-app.get('/channels1', function(req, res) {
-    res.json(__dirname + '/channelsData.json');
-})
-
-app.get('/channels2', function(req, res) {
+app.get('/channels', function(req, res) {
     res.sendFile(__dirname + '/channelsData.json');
 })
 
@@ -173,6 +169,7 @@ app.listen(app.get('port'), function() {
 ///
 
 process.on('exit', function() {
+  console.log('!!!!!!!!!!! process.on.exit !!!!!!!!!!!!');
   channelsData.channelCooldowns = channelCooldowns;
   channelsData.channelAmounts = channelAmounts;
   channelsData.vievewsCounts = vievewsCounts;
