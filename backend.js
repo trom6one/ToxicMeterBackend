@@ -159,19 +159,18 @@ app.listen(app.get('port'), function() {
 // var dataReaded = false;
 function readDataFromFile() {
   fs.readFile(__dirname + '/channelsData.json', 'utf-8', function(err, data) { 
-    console.log(`data = ${data}`);
-    console.log(`JSON.parse(data)['channelAmounts'] = ${JSON.stringify(JSON.parse(data)['channelAmounts'])}`);
-
+    // console.log(`data = ${data}`);
+    // console.log(`JSON.parse(data)['channelAmounts'] = ${JSON.parse(data)['channelAmounts']}`);
+      channelAmounts = JSON.parse(data)['channelAmounts'];
+      vievewsCounts = JSON.parse(data)['vievewsCounts'];
+      userCooldowns = JSON.parse(data)['userCooldowns'];
+      decreaseTimer = JSON.parse(data)['decreaseTimer'];
+      decreaseTimerActive = JSON.parse(data)['decreaseTimerActive'];
+      channelCooldowns = JSON.parse(data)['channelCooldowns'];
   });  
     // console.log(`data = ${JSON.stringify(jsonData)}`);
 
     // if(!dataReaded){
-    //   channelAmounts = JSON.parse(JSON.stringify(jsonData['channelAmounts']));
-    //   vievewsCounts = JSON.parse(JSON.stringify(jsonData['vievewsCounts']));
-    //   userCooldowns = JSON.parse(JSON.stringify(jsonData['userCooldowns']));
-    //   decreaseTimer = JSON.parse(JSON.stringify(jsonData['decreaseTimer']));
-    //   decreaseTimerActive = JSON.parse(JSON.stringify(jsonData['decreaseTimerActive']));
-    //   channelCooldowns = JSON.parse(JSON.stringify(jsonData['channelCooldowns']));
     //   dataReaded = true;
     // }
 }
