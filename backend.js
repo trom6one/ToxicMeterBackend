@@ -162,12 +162,12 @@ function readDataFromFile() {
     console.log(`data = ${JSON.stringify(jsonData)}`);
 
     if(!dataReaded){
-      channelAmounts = JSON.stringify(jsonData['channelAmounts']).slice(1, -1);
-      vievewsCounts = JSON.stringify(jsonData['vievewsCounts']).slice(1, -1);
-      userCooldowns = JSON.stringify(jsonData['userCooldowns']).slice(1, -1);
-      decreaseTimer = JSON.stringify(jsonData['decreaseTimer']).slice(1, -1);
-      decreaseTimerActive = JSON.stringify(jsonData['decreaseTimerActive']).slice(1, -1);
-      channelCooldowns = JSON.stringify(jsonData['channelCooldowns']).slice(1, -1);
+      // channelAmounts = JSON.stringify(jsonData['channelAmounts']).slice(1, -1);
+      // vievewsCounts = JSON.stringify(jsonData['vievewsCounts']).slice(1, -1);
+      // userCooldowns = JSON.stringify(jsonData['userCooldowns']).slice(1, -1);
+      // decreaseTimer = JSON.stringify(jsonData['decreaseTimer']).slice(1, -1);
+      // decreaseTimerActive = JSON.stringify(jsonData['decreaseTimerActive']).slice(1, -1);
+      // channelCooldowns = JSON.stringify(jsonData['channelCooldowns']).slice(1, -1);
       dataReaded = true;
     }
 }
