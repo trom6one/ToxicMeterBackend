@@ -149,11 +149,6 @@ app.post('/fill/amount', function(req, res) {
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 
-  readDataFromFile();
-  initDataSaveTimer(10000);
-});
-
-async function readDataFromFile() {
   fs.readFileSync(__dirname + '/channelsData.json', (err, data) => {
     if (err) throw err;
     let readedJson = JSON.parse(data);
@@ -165,6 +160,11 @@ async function readDataFromFile() {
     decreaseTimer = JSON.stringify(readedJson['decreaseTimer']);
     decreaseTimerActive = JSON.stringify(readedJson['decreaseTimerActive']);
   });
+  
+  initDataSaveTimer(10000);
+});
+
+async function readDataFromFile() {
 }
 
 
