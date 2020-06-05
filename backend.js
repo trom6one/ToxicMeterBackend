@@ -154,17 +154,17 @@ app.listen(app.get('port'), function() {
 });
 
 async function readDataFromFile() {
-  fs.readFile(__dirname + '/channelsData.json', (err, data) => {
-    if (err) throw err;
-    let readedJson = JSON.parse(data);
-    console.log(`readedJson['channelAmounts'] = ${JSON.stringify(readedJson['channelAmounts'])}`);
-    channelCooldowns = JSON.stringify(readedJson['channelCooldowns']);
-    channelAmounts = JSON.stringify(readedJson['channelAmounts']);
-    vievewsCounts = JSON.stringify(readedJson['vievewsCounts']);
-    userCooldowns = JSON.stringify(readedJson['userCooldowns']);
-    decreaseTimer = JSON.stringify(readedJson['decreaseTimer']);
-    decreaseTimerActive = JSON.stringify(readedJson['decreaseTimerActive']);
-  });
+  // fs.readFile(__dirname + '/channelsData.json', (err, data) => {
+  //   if (err) throw err;
+  //   let readedJson = JSON.parse(data);
+  //   console.log(`readedJson['channelAmounts'] = ${JSON.stringify(readedJson['channelAmounts'])}`);
+  //   channelCooldowns = JSON.stringify(readedJson['channelCooldowns']);
+  //   channelAmounts = JSON.stringify(readedJson['channelAmounts']);
+  //   vievewsCounts = JSON.stringify(readedJson['vievewsCounts']);
+  //   userCooldowns = JSON.stringify(readedJson['userCooldowns']);
+  //   decreaseTimer = JSON.stringify(readedJson['decreaseTimer']);
+  //   decreaseTimerActive = JSON.stringify(readedJson['decreaseTimerActive']);
+  // });
 }
 
 
