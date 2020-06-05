@@ -118,7 +118,7 @@ app.get('/obs-overlay/:channel', function(req , res){
 })
 
 app.get('/channels', function(req, res) {
-    res.sendFile(__dirname + '/channelsData.json');
+    res.json(__dirname + '/channelsData.json');
 })
 
 app.get('/fill/query', function(req, res) {
