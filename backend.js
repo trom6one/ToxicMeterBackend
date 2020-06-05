@@ -152,7 +152,9 @@ app.listen(app.get('port'), function() {
   fs.readFileSync(__dirname + '/channelsData.json', (err, data) => {
     if (err) throw err;
     let readedJson = JSON.parse(data);
-    console.log(`readedJson['channelAmounts'] = ${JSON.stringify(readedJson.channelAmounts)}`);
+    console.log(`data = ${data}`);
+    console.log(`JSON.parse(data) = ${JSON.parse(data)}`);
+    console.log(`JSON.stringify(JSON.parse(data)) = ${JSON.stringify(JSON.parse(data))}`);
     // channelCooldowns = JSON.stringify(readedJson['channelCooldowns']);
     // channelAmounts = JSON.stringify(readedJson['channelAmounts']);
     // vievewsCounts = JSON.stringify(readedJson['vievewsCounts']);
