@@ -30,7 +30,7 @@ const feedbackFormsURL = 'https://forms.gle/aXyuymYT9yZcjGLBA';
 const initialAmount = 0;
 const maxAmount = 100;
 const amountDecreaseTimer = 10000;
-const amountLiveTime = 1000; // 5000
+const amountLiveTime = 500; // 5000
 const userCooldownMs = 1000;
 
 ///
@@ -108,22 +108,10 @@ app.get('/obs-overlay/:channel', function(req , res){
   res.sendFile(__dirname + '/obs-overlay.html', {channel: channel});
 })
 
-app.get('/amounts', function(req, res) {
-    res.send(channelAmounts);
+app.get('/channels', function(req, res) {
+    res.json('/channelsData.json');
 })
 
-app.get('/timers', function(req, res) {
-    res.send(decreaseTimer);
-})
-
-app.get('/cooldowns', function(req, res) {
-    res.send(userCooldowns);
-})
-
-app.get('/viewers', function(req, res) {
-    res.send(vievewsCounts);
-})
-  
 app.get('/fill/query', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   let value = getAmount(req);
@@ -279,26 +267,6 @@ function sendAmountBroadcast(channelId) {
 ///
 ///
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///
-///
-///
-
 function getAmount(req) {
   // Verify all requests.
   const payload = verifyAndDecode(req.headers.authorization);
@@ -313,27 +281,6 @@ function getAmount(req) {
 ///
 ///
 ///
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///
-///
-///
-
 
 // Create and return a JWT for use by this service.
 function makeServerToken(channelId) {
@@ -370,12 +317,6 @@ function userIsInCooldown(opaqueUserId) {
 ///
 ///
 
-
-
-
-
-
-
 async function initDecreaseAmountTimer(channelId, ms) {
   var timer = decreaseTimer[channelId];
   //console.log(timer); ///
@@ -404,18 +345,10 @@ function decreaseAmount(channelId){
     decreaseTimerActive[channelId] = false;
   }
   else{
-    initDecreaseAmountTimer(channelId, 1000);
+    initDecreaseAmountTimer(channelId, amountLiveTime);
   }
   attemptAmountBroadcast(channelId);
 }
-
-
-
-
-
-
-
-
 
 ///
 ///
