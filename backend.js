@@ -164,7 +164,7 @@ function readDataFromFile() {
     console.log(`jsonData['channelAmounts'] = ${jsonData['channelAmounts']}`);
 
     var data = jsonData;
-    console.log(`data['channelAmounts'] = ${data['channelAmounts']}`);
+    console.log(`JSON.stringify(data['channelAmounts']) = ${JSON.stringify(data['channelAmounts'])}`);
     // data = JSON.parse(jsonData);
     // console.log(`JSON.parse data['channelAmounts'] = ${data['channelAmounts']}`);
     
