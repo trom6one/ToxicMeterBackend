@@ -190,7 +190,7 @@ async function initDataSaveTimer(ms) {
     if (err) {
         console.log('Error writing file', err)
     } else {
-        console.log('Successfully wrote file')
+        // console.log('Successfully wrote file')
     }
   });
 
