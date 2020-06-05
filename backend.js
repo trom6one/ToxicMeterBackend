@@ -145,12 +145,12 @@ app.post('/fill/amount', function(req, res) {
 
 
 
-var jsonData = require(__dirname + '/channelsData.json');
+// var jsonData = require(__dirname + '/channelsData.json');
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 
-  readDataFromFile();
+  // readDataFromFile();
 
   initDataSaveTimer(10000);
 });
