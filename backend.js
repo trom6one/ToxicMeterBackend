@@ -154,7 +154,7 @@ app.listen(app.get('port'), function() {
   initDataSaveTimer(10000);
 });
 
-async function readDataFromFile() {
+function readDataFromFile() {
   fs.readFileSync(__dirname + '/channelsData.json', (err, data) => {
     console.log('Start read JSON');
     if (err) throw err;
