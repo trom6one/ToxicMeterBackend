@@ -1,7 +1,4 @@
 {
-    "channelCooldowns": {
-
-    },
     "channelAmounts": {
 
     },
@@ -16,6 +13,8 @@
     },
     "decreaseTimerActive": {
 
-    }
+    },
+    "channelCooldowns": {
 
+    }
 }

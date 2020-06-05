@@ -106,8 +106,6 @@ app.use(bodyParser.json());
 ///
 
 
-var channelsData = require(__dirname + '/channelsData.json');
-
 app.get('/', function(req, res) {
     res.redirect(feedbackFormsURL);
 })
@@ -144,26 +142,20 @@ app.post('/fill/amount', function(req, res) {
 
 
 
-// const fs = require('fs');
-// let channelsData = fs.readFileSync('channelsData.json', 'utf8');
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 
-  // channelCooldowns = JSON.parse(channelsData)["channelCooldowns"] || {};
-  // channelAmounts = JSON.parse(channelsData)["channelAmounts"] || {};
-  // vievewsCounts = JSON.parse(channelsData)["vievewsCounts"] || {};
-  // userCooldowns = JSON.parse(channelsData)["userCooldowns"] || {};
-  // decreaseTimer = JSON.parse(channelsData)["decreaseTimer"] || {};
-  // decreaseTimerActive = JSON.parse(channelsData)["decreaseTimerActive"] || {};
-
-  channelCooldowns = channelsData.channelCooldowns || {};
-  channelAmounts = channelsData.channelAmounts || {};
-  vievewsCounts = channelsData.vievewsCounts || {};
-  userCooldowns = channelsData.userCooldowns || {};
-  decreaseTimer = channelsData.decreaseTimer || {};
-  decreaseTimerActive = channelsData.decreaseTimerActive || {};
-
+  fs.readFile(__dirname + '/channelsData.json', (err, data) => {
+    if (err) throw err;
+    let readedJson = JSON.parse(data);
+    channelCooldowns = readedJson['channelCooldowns'] || {};
+    channelAmounts = readedJson['channelAmounts'] || {};
+    vievewsCounts = readedJson['vievewsCounts'] || {};
+    userCooldowns = readedJson['userCooldowns'] || {};
+    decreaseTimer = readedJson['decreaseTimer'] || {};
+    decreaseTimerActive = readedJson['decreaseTimerActive'] || {};
+  });
 
   initDataSaveTimer(10000);
   
