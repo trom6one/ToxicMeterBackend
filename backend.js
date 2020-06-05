@@ -167,12 +167,12 @@ function readDataFromFile() {
     console.log(`JSON.parse(JSON.stringify(jsonData)).channelCooldowns = ${JSON.parse(JSON.stringify(jsonData)).channelCooldowns}`);
     
     
-    channelAmounts = JSON.stringify(jsonData)[0];
-    vievewsCounts = JSON.stringify(jsonData)[1];
-    userCooldowns = JSON.stringify(jsonData)[2];
-    decreaseTimer = JSON.stringify(jsonData)[3];
-    decreaseTimerActive = JSON.stringify(jsonData)[4];
-    channelCooldowns = JSON.stringify(jsonData)[5];
+    channelAmounts = jsonData[0];
+    vievewsCounts = jsonData[1];
+    userCooldowns = jsonData[2];
+    decreaseTimer = jsonData[3];
+    decreaseTimerActive = jsonData[4];
+    channelCooldowns = jsonData[5];
 }
 
 
