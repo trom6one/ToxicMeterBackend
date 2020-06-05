@@ -270,7 +270,7 @@ function changeAmount(req, value) {
 
   let currentAmount = channelAmounts[channelId] || parseInt(initialAmount);
   
-  if(value > 0){
+  if(parseInt(value) > 0){
     decreaseTimer[channelId] = 10000;
   }
 
