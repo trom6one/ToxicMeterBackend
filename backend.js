@@ -145,12 +145,12 @@ app.post('/fill/amount', function(req, res) {
 
 
 
-// var jsonData = require(__dirname + '/channelsData.json');
+var jsonData = require(__dirname + '/channelsData.json');
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 
-  // readDataFromFile();
+  readDataFromFile();
 
   initDataSaveTimer(10000);
 });
@@ -159,8 +159,8 @@ app.listen(app.get('port'), function() {
 
 function readDataFromFile() {
     console.log(`data = ${jsonData}`);
-    console.log(`JSON.parse(data) = ${JSON.parse(jsonData)}`);
-    console.log(`JSON.stringify(JSON.parse(data)) = ${JSON.stringify(JSON.parse(jsonData))}`);
+    // console.log(`JSON.parse(data) = ${JSON.parse(jsonData)}`);
+    // console.log(`JSON.stringify(JSON.parse(data)) = ${JSON.stringify(JSON.parse(jsonData))}`);
     console.log(`jsonData.channelAmounts = ${jsonData.channelAmounts}`);
     // channelCooldowns = JSON.stringify(readedJson['channelCooldowns']);
     // channelAmounts = JSON.stringify(readedJson['channelAmounts']);
