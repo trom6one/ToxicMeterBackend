@@ -133,7 +133,14 @@ app.get('/fill/query', function(req, res) {
 app.post('/fill/amount', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   //console.log("POST /fill/amount");
-  changeAmount(req);
+  changeAmount(req, 1);
+  res.send('POST');
+})
+
+app.post('/fill/demount', function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  //console.log("POST /fill/amount");
+  changeAmount(req, -1);
   res.send('POST');
 })
 
@@ -256,7 +263,7 @@ setInterval(() => { userCooldowns = {}; }, userCooldownClearIntervalMs);
 ///
 ///
 
-function changeAmount(req) {
+function changeAmount(req, value) {
   // Verify all requests.
   const payload = verifyAndDecode(req.headers.authorization);
   const { channel_id: channelId, opaque_user_id: opaqueUserId } = payload;
@@ -274,7 +281,7 @@ function changeAmount(req) {
   
 
   let viewersCount = vievewsCounts[channelId];
-  let changeValue = viewersCount > 1 ? (1 / viewersCount).toFixed(5) : 1; // 1 / (4000 / 20)
+  let changeValue = viewersCount > 1 ? (parseInt(value) / viewersCount).toFixed(5) : parseInt(value); // 1 / (4000 / 20)
   currentAmount = Math.min(Math.max(parseFloat(currentAmount) + parseFloat(changeValue), 0), parseInt(maxAmount));
 
   // Save the new color for the channel.
