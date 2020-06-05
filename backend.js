@@ -157,15 +157,19 @@ app.listen(app.get('port'), function() {
 
 // console.log(jsonData.Test_Session.test_SessionID[0].DataURL);
 
+var dataReaded = false;
 function readDataFromFile() {
     console.log(`data = ${JSON.stringify(jsonData)}`);
 
-    channelAmounts = JSON.stringify(jsonData['channelAmounts']);
-    vievewsCounts = JSON.stringify(jsonData['vievewsCounts']);
-    userCooldowns = JSON.stringify(jsonData['userCooldowns']);
-    decreaseTimer = JSON.stringify(jsonData['decreaseTimer']);
-    decreaseTimerActive = JSON.stringify(jsonData['decreaseTimerActive']);
-    channelCooldowns = JSON.stringify(jsonData['channelCooldowns']);
+    if(!dataReaded){
+      channelAmounts = JSON.stringify(jsonData['channelAmounts']);
+      vievewsCounts = JSON.stringify(jsonData['vievewsCounts']);
+      userCooldowns = JSON.stringify(jsonData['userCooldowns']);
+      decreaseTimer = JSON.stringify(jsonData['decreaseTimer']);
+      decreaseTimerActive = JSON.stringify(jsonData['decreaseTimerActive']);
+      channelCooldowns = JSON.stringify(jsonData['channelCooldowns']);
+      dataReaded = true;
+    }
 }
 
 
