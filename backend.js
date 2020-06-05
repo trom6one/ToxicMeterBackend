@@ -161,7 +161,10 @@ function readDataFromFile() {
     console.log(`data = ${JSON.stringify(jsonData)}`);
     // console.log(`JSON.parse(data) = ${JSON.parse(jsonData)}`);
     // console.log(`JSON.stringify(JSON.parse(data)) = ${JSON.stringify(JSON.parse(jsonData))}`);
-    console.log(`jsonData.channelAmounts = ${JSON.stringify(jsonData)['channelAmounts']}`);
+    console.log(`JSON.stringify(jsonData)[0] = ${JSON.stringify(jsonData)[0]}`);
+    console.log(`JSON.parse(JSON.stringify(jsonData))[0] = ${JSON.parse(JSON.stringify(jsonData))[0]}`);
+    console.log(`JSON.parse(JSON.stringify(jsonData))['channelCooldowns'] = ${JSON.parse(JSON.stringify(jsonData))['channelCooldowns']}`);
+    console.log(`JSON.parse(JSON.stringify(jsonData)).channelCooldowns = ${JSON.parse(JSON.stringify(jsonData)).channelCooldowns}`);
     // channelCooldowns = JSON.stringify(readedJson['channelCooldowns']);
     // channelAmounts = JSON.stringify(readedJson['channelAmounts']);
     // vievewsCounts = JSON.stringify(readedJson['vievewsCounts']);
