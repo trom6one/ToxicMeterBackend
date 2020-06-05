@@ -1,7 +1,21 @@
 {
-    "0":{
-        "name": "0" ,
-        "viewers": "0",
-        "amount": "0"
+    "channelCooldowns": {
+
+    },
+    "channelAmounts": {
+
+    },
+    "vievewsCounts": {
+
+    },
+    "userCooldowns": {
+
+    },
+    "decreaseTimer": {
+
+    },
+    "decreaseTimerActive": {
+
     }
+
 }
