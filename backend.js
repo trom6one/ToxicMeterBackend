@@ -162,21 +162,77 @@ app.listen(app.get('port'), function() {
   userCooldowns = channelsData.userCooldowns || {};
   decreaseTimer = channelsData.decreaseTimer || {};
   decreaseTimerActive = channelsData.decreaseTimerActive || {};
+
+
+  initDataSaveTimer(10000);
+  
 })
 
-///
-///
-///
 
-process.on('exit', function() {
-  console.log('!!!!!!!!!!! process.on.exit !!!!!!!!!!!!');
+
+async function initDataSaveTimer(ms) {
+  await sleepDataSaveTimer(parseInt(ms));
+
   channelsData.channelCooldowns = channelCooldowns;
   channelsData.channelAmounts = channelAmounts;
   channelsData.vievewsCounts = vievewsCounts;
   channelsData.userCooldowns = userCooldowns;
   channelsData.decreaseTimer = decreaseTimer;
   channelsData.decreaseTimerActive = decreaseTimerActive;
-});
+
+  console.log('Channels Data Wroted')
+
+  initDataSaveTimer(ms);
+}
+
+function sleepDataSaveTimer(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ///
 ///
