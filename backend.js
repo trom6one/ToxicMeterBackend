@@ -162,8 +162,8 @@ app.listen(app.get('port'), function() {
 
 // function readDataFromFile() {
 //   fs.readFile(__dirname + '/channelsData.json', 'utf-8', function(err, data) { 
-//     // console.log(`data = ${data}`);
-//     // console.log(`JSON.parse(data)['channelAmounts'] = ${JSON.parse(data)['channelAmounts']}`);
+//       console.log(`data = ${data}`);
+//       cconsole.log(`JSON.parse(data)['channelAmounts'] = ${JSON.parse(data)['channelAmounts']}`);
 //       channelAmounts = JSON.parse(data)['channelAmounts'];
 //       vievewsCounts = JSON.parse(data)['vievewsCounts'];
 //       userCooldowns = JSON.parse(data)['userCooldowns'];
@@ -270,7 +270,9 @@ function changeAmount(req, value) {
 
   let currentAmount = channelAmounts[channelId] || parseInt(initialAmount);
   
-  decreaseTimer[channelId] = 10000;
+  if(value > 0){
+    decreaseTimer[channelId] = 10000;
+  }
 
   // Bot abuse prevention:  don't allow a user to spam the button.
   if (userIsInCooldown(opaqueUserId)) {
