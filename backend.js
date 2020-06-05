@@ -167,12 +167,12 @@ async function initDataSaveTimer(ms) {
   await sleepDataSaveTimer(parseInt(ms));
 
   var tmpJson = {
-    "channelCooldowns": {},
     "channelAmounts": {},
     "vievewsCounts": {},
     "userCooldowns": {},
     "decreaseTimer": {},
-    "decreaseTimerActive": {}
+    "decreaseTimerActive": {},
+    "channelCooldowns": {}
   }
 
   tmpJson.channelCooldowns = channelCooldowns;
