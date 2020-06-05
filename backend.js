@@ -142,10 +142,9 @@ app.post('/fill/amount', function(req, res) {
 
 
 
+   
 
-
-
-var jsonData = require(__dirname + '/channelsData.json');
+// var jsonData = require(__dirname + '/channelsData.json');
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
@@ -157,19 +156,22 @@ app.listen(app.get('port'), function() {
 
 // console.log(jsonData.Test_Session.test_SessionID[0].DataURL);
 
-var dataReaded = false;
+// var dataReaded = false;
 function readDataFromFile() {
-    console.log(`data = ${JSON.stringify(jsonData)}`);
+  fs.readFile(__dirname + '/channelsData.json', 'utf-8', function(err, data) { 
+    console.log(`data = ${data}`);
+  }); 
+    // console.log(`data = ${JSON.stringify(jsonData)}`);
 
-    if(!dataReaded){
-      channelAmounts = JSON.parse(JSON.stringify(jsonData['channelAmounts']));
-      vievewsCounts = JSON.parse(JSON.stringify(jsonData['vievewsCounts']));
-      userCooldowns = JSON.parse(JSON.stringify(jsonData['userCooldowns']));
-      decreaseTimer = JSON.parse(JSON.stringify(jsonData['decreaseTimer']));
-      decreaseTimerActive = JSON.parse(JSON.stringify(jsonData['decreaseTimerActive']));
-      channelCooldowns = JSON.parse(JSON.stringify(jsonData['channelCooldowns']));
-      dataReaded = true;
-    }
+    // if(!dataReaded){
+    //   channelAmounts = JSON.parse(JSON.stringify(jsonData['channelAmounts']));
+    //   vievewsCounts = JSON.parse(JSON.stringify(jsonData['vievewsCounts']));
+    //   userCooldowns = JSON.parse(JSON.stringify(jsonData['userCooldowns']));
+    //   decreaseTimer = JSON.parse(JSON.stringify(jsonData['decreaseTimer']));
+    //   decreaseTimerActive = JSON.parse(JSON.stringify(jsonData['decreaseTimerActive']));
+    //   channelCooldowns = JSON.parse(JSON.stringify(jsonData['channelCooldowns']));
+    //   dataReaded = true;
+    // }
 }
 
 
