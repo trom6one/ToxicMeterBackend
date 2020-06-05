@@ -159,22 +159,13 @@ app.listen(app.get('port'), function() {
 
 function readDataFromFile() {
     console.log(`data = ${JSON.stringify(jsonData)}`);
-    // console.log(`JSON.parse(data) = ${JSON.parse(jsonData)}`);
-    // console.log(`JSON.stringify(JSON.parse(data)) = ${JSON.stringify(JSON.parse(jsonData))}`);
-    console.log(`jsonData['channelAmounts'] = ${jsonData['channelAmounts']}`);
 
-    var data = jsonData;
-    console.log(`JSON.stringify(data['channelAmounts']) = ${JSON.stringify(data['channelAmounts'])}`);
-    // data = JSON.parse(jsonData);
-    // console.log(`JSON.parse data['channelAmounts'] = ${data['channelAmounts']}`);
-    
-    
-    // channelAmounts = jsonData[0];
-    // vievewsCounts = jsonData[1];
-    // userCooldowns = jsonData[2];
-    // decreaseTimer = jsonData[3];
-    // decreaseTimerActive = jsonData[4];
-    // channelCooldowns = jsonData[5];
+    channelAmounts = JSON.stringify(jsonData['channelAmounts']);
+    vievewsCounts = JSON.stringify(jsonData['vievewsCounts']);
+    userCooldowns = JSON.stringify(jsonData['userCooldowns']);
+    decreaseTimer = JSON.stringify(jsonData['decreaseTimer']);
+    decreaseTimerActive = JSON.stringify(jsonData['decreaseTimerActive']);
+    channelCooldowns = JSON.stringify(jsonData['channelCooldowns']);
 }
 
 
