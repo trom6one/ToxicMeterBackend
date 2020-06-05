@@ -142,25 +142,27 @@ app.post('/fill/amount', function(req, res) {
 
 
 
-
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
+})
 
-  // fs.readFile(__dirname + '/channelsData.json', (err, data) => {
-  //   if (err) throw err;
-  //   let readedJson = JSON.parse(data);
-  //   console.log(`readedJson['channelAmounts'] = ${JSON.stringify(readedJson['channelAmounts'])}`);
-  //   channelCooldowns = JSON.stringify(readedJson['channelCooldowns']) || {};
-  //   channelAmounts = JSON.stringify(readedJson['channelAmounts']) || {};
-  //   vievewsCounts = JSON.stringify(readedJson['vievewsCounts']) || {};
-  //   userCooldowns = JSON.stringify(readedJson['userCooldowns']) || {};
-  //   decreaseTimer = JSON.stringify(readedJson['decreaseTimer']) || {};
-  //   decreaseTimerActive = JSON.stringify(readedJson['decreaseTimerActive']) || {};
-  // });
 
+app.on('listening', function () {
+
+  fs.readFile(__dirname + '/channelsData.json', (err, data) => {
+    if (err) throw err;
+    let readedJson = JSON.parse(data);
+    console.log(`readedJson['channelAmounts'] = ${JSON.stringify(readedJson['channelAmounts'])}`);
+    channelCooldowns = JSON.stringify(readedJson['channelCooldowns']);
+    channelAmounts = JSON.stringify(readedJson['channelAmounts']);
+    vievewsCounts = JSON.stringify(readedJson['vievewsCounts']);
+    userCooldowns = JSON.stringify(readedJson['userCooldowns']);
+    decreaseTimer = JSON.stringify(readedJson['decreaseTimer']);
+    decreaseTimerActive = JSON.stringify(readedJson['decreaseTimerActive']);
+  });
 
   initDataSaveTimer(10000);
-})
+});
 
 
 
