@@ -158,10 +158,10 @@ app.listen(app.get('port'), function() {
 // console.log(jsonData.Test_Session.test_SessionID[0].DataURL);
 
 function readDataFromFile() {
-    console.log(`data = ${jsonData}`);
+    console.log(`data = ${JSON.stringify(jsonData)}`);
     // console.log(`JSON.parse(data) = ${JSON.parse(jsonData)}`);
     // console.log(`JSON.stringify(JSON.parse(data)) = ${JSON.stringify(JSON.parse(jsonData))}`);
-    console.log(`jsonData.channelAmounts = ${jsonData.channelAmounts}`);
+    console.log(`jsonData.channelAmounts = ${JSON.stringify(jsonData).channelAmounts}`);
     // channelCooldowns = JSON.stringify(readedJson['channelCooldowns']);
     // channelAmounts = JSON.stringify(readedJson['channelAmounts']);
     // vievewsCounts = JSON.stringify(readedJson['vievewsCounts']);
