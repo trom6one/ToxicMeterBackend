@@ -8,6 +8,7 @@ const Boom = require('boom');
 const jsonwebtoken = require('jsonwebtoken');
 const request = require('request');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 
 ///
 
@@ -173,14 +174,29 @@ app.listen(app.get('port'), function() {
 async function initDataSaveTimer(ms) {
   await sleepDataSaveTimer(parseInt(ms));
 
-  channelsData.channelCooldowns = channelCooldowns;
-  channelsData.channelAmounts = channelAmounts;
-  channelsData.vievewsCounts = vievewsCounts;
-  channelsData.userCooldowns = userCooldowns;
-  channelsData.decreaseTimer = decreaseTimer;
-  channelsData.decreaseTimerActive = decreaseTimerActive;
+  var tmpJson = {
+    "channelCooldowns": {},
+    "channelAmounts": {},
+    "vievewsCounts": {},
+    "userCooldowns": {},
+    "decreaseTimer": {},
+    "decreaseTimerActive": {}
+  }
 
-  console.log('Channels Data Wroted')
+  tmpJson.channelCooldowns = channelCooldowns;
+  tmpJson.channelAmounts = channelAmounts;
+  tmpJson.vievewsCounts = vievewsCounts;
+  tmpJson.userCooldowns = userCooldowns;
+  tmpJson.decreaseTimer = decreaseTimer;
+  tmpJson.decreaseTimerActive = decreaseTimerActive;
+
+  fs.writeFile(__dirname + '/channelsData.json', tmpJson, err => {
+    if (err) {
+        console.log('Error writing file', err)
+    } else {
+        console.log('Successfully wrote file')
+    }
+  });
 
   initDataSaveTimer(ms);
 }
