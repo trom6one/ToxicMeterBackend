@@ -190,7 +190,7 @@ async function initDataSaveTimer(ms) {
   tmpJson.decreaseTimer = decreaseTimer;
   tmpJson.decreaseTimerActive = decreaseTimerActive;
 
-  fs.writeFile(__dirname + '/channelsData.json', tmpJson, err => {
+  fs.writeFile(__dirname + '/channelsData.json', JSON.stringify(tmpJson), err => {
     if (err) {
         console.log('Error writing file', err)
     } else {
