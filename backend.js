@@ -160,7 +160,7 @@ app.listen(app.get('port'), function() {
 function readDataFromFile() {
   fs.readFile(__dirname + '/channelsData.json', 'utf-8', function(err, data) { 
     console.log(`data = ${data}`);
-    console.log(`JSON.parse(data)['channelAmounts'] = ${JSON.parse(data)['channelAmounts']}`);
+    console.log(`JSON.parse(data)['channelAmounts'] = ${JSON.stringify(JSON.parse(data)['channelAmounts'])}`);
 
   });  
     // console.log(`data = ${JSON.stringify(jsonData)}`);
