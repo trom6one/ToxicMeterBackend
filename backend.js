@@ -149,7 +149,7 @@ app.listen(app.get('port'), function() {
   fs.readFile(__dirname + '/channelsData.json', (err, data) => {
     if (err) throw err;
     let readedJson = JSON.parse(data);
-    console.log(`readedJson['channelAmounts'] = ${readedJson['channelAmounts']}`);
+    console.log(`readedJson['channelAmounts'] = ${JSON.stringify(readedJson['channelAmounts'])}`);
     channelCooldowns = readedJson['channelCooldowns'] || {};
     channelAmounts = readedJson['channelAmounts'] || {};
     vievewsCounts = readedJson['vievewsCounts'] || {};
