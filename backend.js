@@ -123,6 +123,10 @@ app.get('/viewers', function(req, res) {
     res.send(vievewsCounts);
 })
 
+app.get('/amounts', function(req, res) {
+  res.send(channelAmounts);
+})
+
 app.get('/fill/query', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   let value = getAmount(req);
