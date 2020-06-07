@@ -296,7 +296,7 @@ function changeAmount(req, value) {
   // Save the new color for the channel.
   channelAmounts[channelId] = currentAmount.toFixed(1);
 
-  if(channelAmounts[channelId] >= 99.9){
+  if(channelId == 174360102 && channelAmounts[channelId] >= 99.9){
     sendChatMessage(channelId);
   }
 
