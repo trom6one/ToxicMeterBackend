@@ -296,7 +296,7 @@ function changeAmount(req, value) {
   // Save the new color for the channel.
   channelAmounts[channelId] = currentAmount.toFixed(1);
 
-  if(channelId == 174360102 && channelAmounts[channelId] >= 99.9){
+  if(channelId == 174360102 && channelAmounts[channelId] >= 99.0){
     sendChatMessage(channelId);
   }
 
@@ -325,7 +325,14 @@ function changeAmount(req, value) {
 ///
 
 function sendChatMessage(channelId){
-  
+  var name = '';
+  request(`https://api.twitch.tv/kraken/channels?client_id=${clientId}&api_version=5&id=${channelId}`, function (err, res, body) {
+    if (err) {
+      console.log(STRINGS.messageSendError, channelId, err);
+    }
+    
+    name = '@' + JSON.parse(body).channels[0].display_name;
+  });
   //POST https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
 
   // curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDMzNDM5NDcsImNoYW5uZWxfaWQiOiIyNzQxOTAxMSIsInVzZXJfaWQiOiIyNzQxOTAxMSIsInJvbGUiOiJleHRlcm5hbCJ9.JZ1fpqMIfEa7Ry4oLVtB_we4qxr4Wc_8t_6TepNOtiY' \
@@ -348,7 +355,7 @@ function sendChatMessage(channelId){
   //   targets: ['broadcast'],
   // });
 
-  const body = JSON.stringify({ text: `@${asd}, are you toxic or what?` })
+  const body = JSON.stringify({ text: `@${name}, are you toxic or what?` })
 
   request(`https://api.twitch.tv/extensions/${clientId}/${extVersion}/channels/${channelId}/chat`,
   {
@@ -402,20 +409,19 @@ function sendAmountBroadcast(channelId) {
 
   // Send the broadcast request to the Twitch API.
   // verboseLog(STRINGS.amountBroadcast, currentAmount, channelId);
-  request(
-    `https://api.twitch.tv/extensions/message/${channelId}`,
-    {
-      method: 'POST',
-      headers,
-      body,
+  request(`https://api.twitch.tv/extensions/message/${channelId}`,
+  {
+    method: 'POST',
+    headers,
+    body,
+  }
+  , (err, res) => {
+    if (err) {
+      console.log(STRINGS.messageSendError, channelId, err);
+    } else {
+      // verboseLog(STRINGS.pubsubResponse, channelId, res.statusCode);
     }
-    , (err, res) => {
-      if (err) {
-        console.log(STRINGS.messageSendError, channelId, err);
-      } else {
-        // verboseLog(STRINGS.pubsubResponse, channelId, res.statusCode);
-      }
-    });
+  });
     
 
   // verboseLog(STRINGS.getChanelViewers, channelId);
