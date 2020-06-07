@@ -332,6 +332,7 @@ function sendChatMessage(channelId){
     }
     
     name = '@' + JSON.parse(body).channels[0].display_name;
+    console.log(`name = ${name}`);
   });
   //POST https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
 
@@ -347,16 +348,7 @@ function sendChatMessage(channelId){
     'Authorization': bearerPrefix + makeServerToken(channelId),
   };
 
-  // Create the POST body for the Twitch API request.
-  const currentAmount = channelAmounts[channelId];
-  // const body = JSON.stringify({
-  //   content_type: 'application/json',
-  //   message: currentAmount,
-  //   targets: ['broadcast'],
-  // });
-
   const body = JSON.stringify({ text: `@${name}, are you toxic or what?` })
-
   request(`https://api.twitch.tv/extensions/${clientId}/${extVersion}/channels/${channelId}/chat`,
   {
     method: 'POST',
