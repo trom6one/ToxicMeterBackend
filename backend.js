@@ -361,7 +361,7 @@ function sendChatMessage(channelId){
     'Authorization': bearerPrefix + makeServerToken(channelId),
   };
 
-  console.log(`headers = ${headers}`);
+  console.log(`headers = ${JSON.stringify(headers)}`);
 
   console.log(`name 2 = ${name}`);
 
