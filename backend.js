@@ -71,6 +71,8 @@ const ownerId = 'trom666one';
 const secret = Buffer.from('//pilJ5gU4baX2atR1gx+o2zhdqXVqMC8eDwHFiLbII=', 'base64');
 const clientId = 'cu6xkebsgerd6ikki3cq08ov1koygc';
 
+const extVersion = '0.0.2';
+
 ///
 ///
 ///
@@ -294,6 +296,10 @@ function changeAmount(req, value) {
   // Save the new color for the channel.
   channelAmounts[channelId] = currentAmount.toFixed(1);
 
+  if(channelAmounts[channelId] >= 99.9){
+    sendChatMessage(channelId);
+  }
+
   // Broadcast the color change to all other extension instances on this channel.
   attemptAmountBroadcast(channelId);
 
@@ -312,6 +318,48 @@ function changeAmount(req, value) {
   }
 
   return currentAmount;
+}
+
+///
+///
+///
+
+function sendChatMessage(channelId){
+  
+  //POST https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
+
+  // curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDMzNDM5NDcsImNoYW5uZWxfaWQiOiIyNzQxOTAxMSIsInVzZXJfaWQiOiIyNzQxOTAxMSIsInJvbGUiOiJleHRlcm5hbCJ9.JZ1fpqMIfEa7Ry4oLVtB_we4qxr4Wc_8t_6TepNOtiY' \
+  // -H 'Client-ID: pxifeyz7vxk9v6yb202nq4cwsnsp1t' \
+  // -H 'Content-Type: application/json' \
+  // -d '{ "text": "This is a normal message." }' \
+  // -X POST https://api.twitch.tv/extensions/pxifeyz7vxk9v6yb202nq4cwsnsp1t/1.0.1/channels/27419011/chat
+  
+  const headers = {
+    'Client-ID': clientId,
+    'Content-Type': 'application/json',
+    'Authorization': bearerPrefix + makeServerToken(channelId),
+  };
+
+  // Create the POST body for the Twitch API request.
+  const currentAmount = channelAmounts[channelId];
+  // const body = JSON.stringify({
+  //   content_type: 'application/json',
+  //   message: currentAmount,
+  //   targets: ['broadcast'],
+  // });
+
+  const body = JSON.stringify({ text: `@${asd}, are you toxic or what?` })
+
+  request(`https://api.twitch.tv/extensions/${clientId}/${extVersion}/channels/${channelId}/chat`,
+  {
+    method: 'POST',
+    headers,
+    body,
+  }, (err, res) => {
+    if (err) {
+      console.log(STRINGS.messageSendError, channelId, err);
+    }
+  });
 }
 
 ///
