@@ -42,6 +42,7 @@ var vievewsCounts = {};
 var userCooldowns = {};
 var decreaseTimer = {};
 var decreaseTimerActive = {};
+var channelNames = {};
 
 ///
 
@@ -128,6 +129,11 @@ app.get('/viewers', function(req, res) {
 app.get('/amounts', function(req, res) {
   res.send(channelAmounts);
 })
+
+app.get('/names', function(req, res) {
+  res.send(channelNames);
+})
+
 
 app.get('/fill/query', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -296,6 +302,17 @@ function changeAmount(req, value) {
   // Save the new color for the channel.
   channelAmounts[channelId] = currentAmount.toFixed(1);
 
+  if(!channelNames[channelId]){
+    request(`https://api.twitch.tv/kraken/channels?client_id=${clientId}&api_version=5&id=${channelId}`, function (err, res, body) {
+      if (err) {
+        console.log(STRINGS.messageSendError, channelId, err);
+      }
+      var name = JSON.parse(body).channels[0].display_name;
+      console.log(`name 1 = ${name}`);
+      channelNames[channelId] = name
+    });
+  }
+
   if(channelId == 174360102 && channelAmounts[channelId] >= 99.0){
     sendChatMessage(channelId);
   }
@@ -325,15 +342,11 @@ function changeAmount(req, value) {
 ///
 
 function sendChatMessage(channelId){
-  var name = '';
-  request(`https://api.twitch.tv/kraken/channels?client_id=${clientId}&api_version=5&id=${channelId}`, function (err, res, body) {
-    if (err) {
-      console.log(STRINGS.messageSendError, channelId, err);
-    }
-    
-    name = '@' + JSON.parse(body).channels[0].display_name;
-    console.log(`name 1 = ${name}`);
-  });
+
+  // 2020-06-07T12:25:22.189991+00:00 app[web.1]: name 2 =
+  // 2020-06-07T12:25:22.190082+00:00 app[web.1]: body = {"text":"@, are you toxic or what?"}
+  // 2020-06-07T12:25:22.361259+00:00 app[web.1]: name 1 = @trom666one
+
   //POST https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
 
   // curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDMzNDM5NDcsImNoYW5uZWxfaWQiOiIyNzQxOTAxMSIsInVzZXJfaWQiOiIyNzQxOTAxMSIsInJvbGUiOiJleHRlcm5hbCJ9.JZ1fpqMIfEa7Ry4oLVtB_we4qxr4Wc_8t_6TepNOtiY' \
@@ -350,7 +363,8 @@ function sendChatMessage(channelId){
 
   console.log(`name 2 = ${name}`);
 
-  const body = JSON.stringify({ text: `@${name}, are you toxic or what?` })
+  var name = channelNames[channelId];
+  const body = JSON.stringify({ text: `@${name}, are you toxic or what?` });
   
   console.log(`body = ${body}`);
 
