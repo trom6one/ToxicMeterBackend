@@ -332,7 +332,7 @@ function sendChatMessage(channelId){
     }
     
     name = '@' + JSON.parse(body).channels[0].display_name;
-    console.log(`name = ${name}`);
+    console.log(`name 1 = ${name}`);
   });
   //POST https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
 
@@ -348,7 +348,12 @@ function sendChatMessage(channelId){
     'Authorization': bearerPrefix + makeServerToken(channelId),
   };
 
+  console.log(`name 2 = ${name}`);
+
   const body = JSON.stringify({ text: `@${name}, are you toxic or what?` })
+  
+  console.log(`body = ${body}`);
+
   request(`https://api.twitch.tv/extensions/${clientId}/${extVersion}/channels/${channelId}/chat`,
   {
     method: 'POST',
