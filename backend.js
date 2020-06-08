@@ -418,22 +418,22 @@ function sendChatMessage(channelId){
 
 
 
-  var name = channelNames[channelId];
-  const body = JSON.stringify({ text: `@${name}, are you toxic or what?` });
+  // var name = channelNames[channelId];
+  // const body = JSON.stringify({ text: `@${name}, are you toxic or what?` });
 
-  var options = { 
-    method: "POST", 
-    uri: `https://api.twitch.tv/extensions/${clientId}/${extVersion}/channels/${channelId}/chat`, 
-    body: body, // объект с данными для сервера
-    headers:{"Authorization": bearerPrefix + makeServerToken(channelId)}, // dXNlcm5hbWU6cGFzc3dvcmQ= - это username:password в base64 кодировке
-    json: true
-  }
+  // var options = { 
+  //   method: "POST", 
+  //   uri: `https://api.twitch.tv/extensions/${clientId}/${extVersion}/channels/${channelId}/chat`, 
+  //   body: body, // объект с данными для сервера
+  //   headers:{"Authorization": bearerPrefix + makeServerToken(channelId)}, // dXNlcm5hbWU6cGFzc3dvcmQ= - это username:password в base64 кодировке
+  //   json: true
+  // }
 
-  rp(options)
-    .then(data => {
-      console.log( JSON.parse(data) );
-    })
-    .catch(err => console.log('error ', err))
+  // rp(options)
+  //   .then(data => {
+  //     console.log( JSON.parse(data) );
+  //   })
+  //   .catch(err => console.log('error ', err))
 }
 
 ///
