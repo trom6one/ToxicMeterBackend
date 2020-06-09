@@ -11,7 +11,149 @@
       -khtml-user-select: none;
       user-select: none;  
   }
-  .wrapper {
+
+/* * * * * * */
+/* * Круги * */
+/* * * * * * */
+.green {
+  /* position */
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  float: right;
+  top:150px;
+  right: 100px;
+}
+
+.green.grab:hover{
+  /* decoration */
+  cursor: grab;
+}
+
+.green.grabbing:hover{
+  /* decoration */
+  cursor: grabbing;
+}
+
+.green .progress {
+  /* decoration */
+  border-radius: 50%;
+  border: 10px solid #53fc53;
+  box-shadow: 0 6px 0 2px #03bc03;
+}
+
+.green .progress .inner {
+  /* position */
+  position: relative;
+  width: 200px;
+  height: 200px;
+  /* decoration */
+  border-radius: 50%;
+  border: 10px solid #ffffff;
+  -webkit-box-shadow: 0 8px 0 #c2c2c2 inset;
+  box-shadow: 0 8px 0 #c2c2c2 inset;
+  overflow: hidden;
+}
+
+/* * * * * * * * */
+/* * Жидкость * */
+/* * * * * * * */
+.green .progress .inner .water {
+  /* position */
+  position: relative;
+  z-index: 1;
+  width: 150%;
+  height: 150%;
+  left: -25%;
+  margin-top: -40%;
+  /* decoration */
+  border-radius: 40%;
+  box-shadow: 0 0 5px #83e083;
+  /* animation */
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-name: spin;
+  animation-name: spin;
+  -webkit-animation-duration: 10s;
+  animation-duration: 10s;
+}
+
+.green .progress .inner .water {
+  top: 100%;
+  background-color: #72ff72;
+  opacity: 50%;
+}
+
+#green.small{
+  transform: scale(0.3);
+  transition: transform 0.15s;
+  opacity: 25%;
+}
+
+#green.small:hover{
+  transform: opacity(100%);
+  transition: transform 0.15s;
+  opacity: 100%;
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* .wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
     display: box;
@@ -28,7 +170,7 @@
     height: 100%;
   }
   .green {
-    margin-top: 5%; /* 22.5 */
+    margin-top: 5%;
   }
   .green .progress {
     position: relative;
@@ -121,41 +263,5 @@
       -webkit-transform: rotate(360deg);
       transform: rotate(360deg);
     }
-  }
-  
-  .btn {
-    /* box-shadow: 0 0 15px 0 #03bc03;
-    box-shadow: 0 0 15px 0 #53fc53ad, 0 6px 0 2px #03bc03; */
-    background-color: #53fc53;
-    border: none;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 6px 0 #03bc03,;
-    box-shadow: 0 6px 0 #03bc03;
-    color: #141905;
-    font-size: 20px;
-    margin-bottom: 0px;
-    margin-top: 15px;
-    outline: none;
-    padding: 10px 20px;
-    text-shadow: 0 1px 0 #95ff95;
-    -webkit-transition: all 0.25s cubic-bezier(0.34, 1.04, 0.31, 2.63), background-color 0.125s linear, text-shadow 0.2s linear;
-    -moz-transition: all 0.25s cubic-bezier(0.34, 1.04, 0.31, 2.63), background-color 0.125s linear, text-shadow 0.2s linear;
-    -o-transition: all 0.25s cubic-bezier(0.34, 1.04, 0.31, 2.63), background-color 0.125s linear, text-shadow 0.2s linear;
-    -ms-transition: all 0.25s cubic-bezier(0.34, 1.04, 0.31, 2.63), background-color 0.125s linear, text-shadow 0.2s linear;
-    transition: all 0.25s cubic-bezier(0.34, 1.04, 0.31, 2.63), background-color 0.125s linear, text-shadow 0.2s linear;
-  }
-  
-  .btn:active {
-    background-color: #53fc53;
-    -webkit-box-shadow: 0 1px 0 #03bc03;
-    box-shadow: 0 1px 0 #03bc03;
-    margin-bottom: -5px;
-    margin-top: 20px;
-    text-shadow: 0 1px 0 #95ff95;
-    -webkit-transition-timing-function: ease;
-    -moz-transition-timing-function: ease;
-    -o-transition-timing-function: ease;
-    -ms-transition-timing-function: ease;
-    transition-timing-function: ease;
-  }
+  } */
   

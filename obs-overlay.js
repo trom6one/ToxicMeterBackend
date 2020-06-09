@@ -1,6 +1,6 @@
 
 let channelId = "";
-const updateAmountTime = 10000;
+const updateAmountTime = 5000;
 
 $(function() {
     let searchParams = new URLSearchParams(window.location.search)
