@@ -326,7 +326,7 @@ function sendChatMessage(channelId){
         });
 
 		let url = 'https://api.twitch.tv/extensions/'
-            + client_id + '/'
+            + clientId + '/'
             + version
             + '/channels/'
             + twitch_id
@@ -337,7 +337,7 @@ function sendChatMessage(channelId){
             headers: {
                 'Accept': 'application/vnd.twitchtv.v5+json',
                 'Authorization': 'Bearer ' + sig,
-                'Client-ID': client_id,
+                'Client-ID': clientId,
                 'Content-Type': 'application/json'
             },
             body: payload,
