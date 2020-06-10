@@ -307,14 +307,14 @@ const jwt = require('jsonwebtoken');
 function sendChatMessage(channelId){
 // https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
 
-        let twitch_id = channelId; // 'destination_channel_id'
+        // let twitch_id = channelId; // 'destination_channel_id'
         let version = '0.0.3';
 
         // var secr = Buffer.from(secret, 'base64');
 
         var payload = {
             'exp':          Math.floor(new Date().getTime() / 1000) + 60,
-            'user_id':      ''+twitch_id,
+            'user_id':      ''+channelId,
             'role':         'broadcaster'
         }
 
@@ -329,7 +329,7 @@ function sendChatMessage(channelId){
             + clientId + '/'
             + version
             + '/channels/'
-            + twitch_id
+            + channelId
             + '/chat';
 
         request.post({
