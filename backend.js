@@ -314,7 +314,7 @@ function sendChatMessage(channelId){
 
         var payload = {
             'exp':          Math.floor(new Date().getTime() / 1000) + 60,
-            'user_id':      ''+channelId,
+            'user_id':      ''+clientId, // channelId,
             'role':         'broadcaster'
         }
 
