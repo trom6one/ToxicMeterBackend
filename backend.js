@@ -136,6 +136,9 @@ app.get('/names', function(req, res) {
   res.send(channelNames);
 })
 
+app.get('/chat', function(req, res) {
+  res.send(channelChatMessageForbidden);
+})
 
 app.get('/fill/query', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -157,7 +160,6 @@ app.post('/fill/demount', function(req, res) {
   changeAmount(req, -1);
   res.send('POST');
 })
-
 
 
 
@@ -262,6 +264,8 @@ function changeAmount(req, value) {
       }
     });
   }
+
+  channelChatMessageForbidden[channelId] = channelChatMessageForbidden[channelId] || false;
 
   if(channelChatMessageForbidden[channelId] && channelAmounts[channelId] < 50.0){
     channelChatMessageForbidden[channelId] = false;
