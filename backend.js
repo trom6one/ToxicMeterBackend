@@ -304,7 +304,7 @@ function changeAmount(req, value) {
 function sendChatMessage(channelId){
   const headers = {
     // 'Client-ID': clientId,
-    // 'Content-Type': 'application/json',
+    'Content-Type': 'text',
     // 'Authorization': bearerPrefix + makeServerToken(channelId),
     'channelId': channelId,
     'channelName': channelName,
