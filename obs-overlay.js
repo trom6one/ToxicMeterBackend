@@ -23,7 +23,7 @@ function sleep(ms) {
 } 
 
 function localUpdateLine() {
-    $.get('https://toxicmeterdev.herokuapp.com/amounts', function (data) {
+    $.get('https://toxicmeter.herokuapp.com/amounts', function (data) {
         var stringified = JSON.stringify(data);
         var obj = JSON.parse(stringified);
         var amount = obj[channelId] || 0;

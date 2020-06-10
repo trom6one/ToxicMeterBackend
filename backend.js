@@ -306,7 +306,7 @@ function sendChatMessage(channelId){
 // https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
 
         // let twitch_id = channelId; // 'destination_channel_id'
-        let version = '0.0.4';
+        let version = '0.0.3';
 
         // var secr = Buffer.from(secret, 'base64');
 
@@ -320,7 +320,7 @@ function sendChatMessage(channelId){
 
         // tell everyone
         var payload = JSON.stringify({
-            'text': `@${channelNames[channelId]} toxicity 100% NotLikeThis`
+            'text': `Toxicity 100% NotLikeThis`
         });
 
 		let url = 'https://api.twitch.tv/extensions/'
