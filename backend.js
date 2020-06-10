@@ -300,6 +300,44 @@ function changeAmount(req, value) {
 ///
 ///
 ///
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // const fs = require('fs');
 // const request = require('request');
 const jwt = require('jsonwebtoken');
@@ -314,7 +352,7 @@ function sendChatMessage(channelId){
 
         var payload = {
             'exp':          Math.floor(new Date().getTime() / 1000) + 60,
-            'user_id':      ''+clientId, // channelId,
+            'user_id':      ''+ownerId, // channelId,
             'role':         'broadcaster'
         }
 
