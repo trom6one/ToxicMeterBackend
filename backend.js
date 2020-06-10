@@ -44,6 +44,8 @@ var decreaseTimer = {};
 var decreaseTimerActive = {};
 var channelNames = {};
 
+var channelChatMessageForbidden = {};
+
 ///
 
 const STRINGS = {
@@ -167,24 +169,8 @@ app.post('/fill/demount', function(req, res) {
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 
-  // readDataFromFile();
-
   initDataSaveTimer(10000);
 });
-
-// function readDataFromFile() {
-//   fs.readFile(__dirname + '/channelsData.json', 'utf-8', function(err, data) { 
-//       console.log(`data = ${data}`);
-//       cconsole.log(`JSON.parse(data)['channelAmounts'] = ${JSON.parse(data)['channelAmounts']}`);
-//       channelAmounts = JSON.parse(data)['channelAmounts'];
-//       vievewsCounts = JSON.parse(data)['vievewsCounts'];
-//       userCooldowns = JSON.parse(data)['userCooldowns'];
-//       decreaseTimer = JSON.parse(data)['decreaseTimer'];
-//       decreaseTimerActive = JSON.parse(data)['decreaseTimerActive'];
-//       channelCooldowns = JSON.parse(data)['channelCooldowns'];
-//   });
-// }
-
 
 async function initDataSaveTimer(ms) {
   await sleepDataSaveTimer(parseInt(ms));
@@ -222,57 +208,10 @@ function sleepDataSaveTimer(ms) {
   });
 }   
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///
-///
 ///
 
 setInterval(() => { userCooldowns = {}; }, userCooldownClearIntervalMs);
 
-///
-///
 ///
 
 
@@ -295,10 +234,7 @@ function changeAmount(req, value) {
 
   let currentAmount = channelAmounts[channelId] || parseInt(initialAmount);
   
-  // TODO Удалить проверку и добавлять всегда
-  // if(parseInt(value) > 0){
-    decreaseTimer[channelId] = 10000;
-  // }
+  decreaseTimer[channelId] = 10000;
 
   // Bot abuse prevention:  don't allow a user to spam the button.
   if (userIsInCooldown(opaqueUserId)) {
@@ -320,15 +256,18 @@ function changeAmount(req, value) {
     request(`https://api.twitch.tv/kraken/channels?client_id=${clientId}&api_version=5&id=${channelId}`, function (err, res, body) {
       if (err) {
         console.log(STRINGS.messageSendError, channelId, err);
-      }
+      } else{
       var name = JSON.parse(body).channels[0].display_name;
-      // console.log(`name 1 = ${name}`);
-      channelNames[channelId] = name
+      channelNames[channelId] = name;
+      }
     });
   }
 
+  if(channelChatMessageForbidden[channelId] && channelAmounts[channelId] < 50.0){
+    channelChatMessageForbidden[channelId] = false;
+  }
 
-  if(channelId == 174360102 && channelAmounts[channelId] >= 20.0){
+  if(!channelChatMessageForbidden[channelId] && channelAmounts[channelId] >= 50.0){ // channelId == 174360102 && 
     sendChatMessage(channelId);
   }
 
@@ -352,90 +291,35 @@ function changeAmount(req, value) {
   return currentAmount;
 }
 
-
-
-
-
-
-
-
-
-
-
 ///
 ///
 ///
-
-
-
-
-
-// const rp = require('request-promise');
-
-
-
+///
+///
 
 function sendChatMessage(channelId){
+  const headers = {
+    // 'Client-ID': clientId,
+    // 'Content-Type': 'application/json',
+    // 'Authorization': bearerPrefix + makeServerToken(channelId),
+  };
 
-  // 2020-06-07T12:25:22.189991+00:00 app[web.1]: name 2 =
-  // 2020-06-07T12:25:22.190082+00:00 app[web.1]: body = {"text":"@, are you toxic or what?"}
-  // 2020-06-07T12:25:22.361259+00:00 app[web.1]: name 1 = @trom666one
-
-  //POST https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
-
-  // curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDMzNDM5NDcsImNoYW5uZWxfaWQiOiIyNzQxOTAxMSIsInVzZXJfaWQiOiIyNzQxOTAxMSIsInJvbGUiOiJleHRlcm5hbCJ9.JZ1fpqMIfEa7Ry4oLVtB_we4qxr4Wc_8t_6TepNOtiY' \
-  // -H 'Client-ID: pxifeyz7vxk9v6yb202nq4cwsnsp1t' \
-  // -H 'Content-Type: application/json' \
-  // -d '{ "text": "This is a normal message." }' \
-  // -X POST https://api.twitch.tv/extensions/pxifeyz7vxk9v6yb202nq4cwsnsp1t/1.0.1/channels/27419011/chat
-  
-  // const headers = {
-  //   'Client-ID': clientId,
-  //   'Content-Type': 'application/json',
-  //   'Authorization': bearerPrefix + makeServerToken(channelId),
-  // };
-
-  // // console.log(`headers = ${JSON.stringify(headers)}`);
-
-  // // console.log(`name 2 = ${name}`);
-
-  // var name = channelNames[channelId];
-  // const body = JSON.stringify({ text: `@${name}, are you toxic or what?` });
-  
-  // // console.log(`body = ${body}`);
-
-  // request(`https://api.twitch.tv/extensions/${clientId}/${extVersion}/channels/${channelId}/chat`,
-  // {
-  //   method: 'POST',
-  //   headers,
-  //   body,
-  // }, (err, res) => {
-  //   if (err) {
-  //     console.log(STRINGS.messageSendError, channelId, err);
-  //   }
-  // });
-
-
-
-
-  // var name = channelNames[channelId];
-  // const body = JSON.stringify({ text: `@${name}, are you toxic or what?` });
-
-  // var options = { 
-  //   method: "POST", 
-  //   uri: `https://api.twitch.tv/extensions/${clientId}/${extVersion}/channels/${channelId}/chat`, 
-  //   body: body, // объект с данными для сервера
-  //   headers:{"Authorization": bearerPrefix + makeServerToken(channelId)}, // dXNlcm5hbWU6cGFzc3dvcmQ= - это username:password в base64 кодировке
-  //   json: true
-  // }
-
-  // rp(options)
-  //   .then(data => {
-  //     console.log( JSON.parse(data) );
-  //   })
-  //   .catch(err => console.log('error ', err))
+  var channelName = channelNames[channelId];
+  request(`https://toxicmeterbot.herokuapp.com/toxic?channel=${channelId}&name=${channelName}`,
+  {
+    method: 'POST',
+    headers,
+  }, (err, res) => {
+    if (err) {
+      console.log(STRINGS.messageSendError, channelId, err);
+    } else {
+      channelChatMessageForbidden[channelId] = true;
+    }
+  });
 }
 
+///
+///
 ///
 ///
 ///
@@ -454,8 +338,6 @@ function attemptAmountBroadcast(channelId) {
   }
 }
 
-///
-///
 ///
 
 function sendAmountBroadcast(channelId) {
