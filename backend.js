@@ -346,13 +346,13 @@ function sendChatMessage(channelId){
 // https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
 
         // let twitch_id = channelId; // 'destination_channel_id'
-        let version = '0.0.3';
+        let version = '0.0.4';
 
         // var secr = Buffer.from(secret, 'base64');
 
         var payload = {
             'exp':          Math.floor(new Date().getTime() / 1000) + 60,
-            'user_id':      ''+ownerId, // channelId,
+            'user_id':      ''+channelId,
             'role':         'broadcaster'
         }
 
