@@ -360,7 +360,7 @@ function sendChatMessage(channelId){
 
         // tell everyone
         var payload = JSON.stringify({
-            'text': `@${channelNames[channelId]}  toxicity 100%`
+            'text': `@${channelNames[channelId]}  toxicity 100% NotLikeThis`
         });
 
 		let url = 'https://api.twitch.tv/extensions/'
