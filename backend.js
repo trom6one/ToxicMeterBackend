@@ -9,6 +9,7 @@ const jsonwebtoken = require('jsonwebtoken');
 const request = require('request');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
 
 ///
 
@@ -267,11 +268,11 @@ function changeAmount(req, value) {
 
   channelChatMessageForbidden[channelId] = channelChatMessageForbidden[channelId] || false;
 
-  if(channelChatMessageForbidden[channelId] && channelAmounts[channelId] < 10.0){
+  if(channelChatMessageForbidden[channelId] && channelAmounts[channelId] < 50.0){
     channelChatMessageForbidden[channelId] = false;
   }
 
-  if(!channelChatMessageForbidden[channelId] && channelAmounts[channelId] >= 10.0){ // channelId == 174360102 && 
+  if(!channelChatMessageForbidden[channelId] && channelAmounts[channelId] >= 100.0){ // channelId == 174360102 && 
     sendChatMessage(channelId);
   }
 
@@ -300,47 +301,6 @@ function changeAmount(req, value) {
 ///
 ///
 ///
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const fs = require('fs');
-// const request = require('request');
-const jwt = require('jsonwebtoken');
 
 function sendChatMessage(channelId){
 // https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
