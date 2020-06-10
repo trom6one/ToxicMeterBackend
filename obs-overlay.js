@@ -27,7 +27,9 @@ function localUpdateLine() {
         var stringified = JSON.stringify(data);
         var obj = JSON.parse(stringified);
         var amount = obj[channelId] || 0;
-        // $(".progress .water").css("top", 100 - amount + "%");
+        
+        $("#water").css("opacity", (40.0 + parseFloat(amount)).toFixed(1) + "%");
+
         $(".progress .water").animate({ top: 100 - amount + "%"}, 'easeInOutCubic', function(){ 
             /* animation comlete */ 
         });
