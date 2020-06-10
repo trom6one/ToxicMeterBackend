@@ -360,7 +360,7 @@ function sendChatMessage(channelId){
 
         // tell everyone
         var payload = JSON.stringify({
-            'text': `@${channelNames[channelId]} toxicity 100%`
+            'text': `@${channelNames[channelId]}  toxicity 100%`
         });
 
 		let url = 'https://api.twitch.tv/extensions/'
@@ -385,6 +385,7 @@ function sendChatMessage(channelId){
                 console.log(e);
             } else if (r.statusCode == 204) {
                 console.log('Relay chat OK');
+                channelChatMessageForbidden[channelId] = true;
             } else {
                 console.log('Got ' + r.statusCode);
                 console.log(b);
