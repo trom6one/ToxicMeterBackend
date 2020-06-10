@@ -267,11 +267,11 @@ function changeAmount(req, value) {
 
   channelChatMessageForbidden[channelId] = channelChatMessageForbidden[channelId] || false;
 
-  if(channelChatMessageForbidden[channelId] && channelAmounts[channelId] < 50.0){
+  if(channelChatMessageForbidden[channelId] && channelAmounts[channelId] < 10.0){
     channelChatMessageForbidden[channelId] = false;
   }
 
-  if(!channelChatMessageForbidden[channelId] && channelAmounts[channelId] >= 50.0){ // channelId == 174360102 && 
+  if(!channelChatMessageForbidden[channelId] && channelAmounts[channelId] >= 10.0){ // channelId == 174360102 && 
     sendChatMessage(channelId);
   }
 
@@ -303,7 +303,7 @@ function changeAmount(req, value) {
 
 function sendChatMessage(channelId){
   var channelName = channelNames[channelId];
-  
+
   const headers = {
     // 'Client-ID': clientId,
     'Content-Type': 'text',
