@@ -311,7 +311,7 @@ function sendChatMessage(channelId){
   };
 
   var channelName = channelNames[channelId];
-  request(`http://toxicmeterbot.herokuapp.com/toxic`, //https://toxicmeterbot.herokuapp.com/toxic?channel=${channelId}&name=${channelName}
+  request(`https://toxicmeterbot.herokuapp.com/toxic`, //https://toxicmeterbot.herokuapp.com/toxic?channel=${channelId}&name=${channelName}
   {
     method: 'POST',
     headers,
