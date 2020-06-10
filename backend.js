@@ -300,29 +300,93 @@ function changeAmount(req, value) {
 ///
 ///
 ///
+// const fs = require('fs');
+// const request = require('request');
+const jwt = require('jsonwebtoken');
 
 function sendChatMessage(channelId){
-  var channelName = channelNames[channelId];
+// https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
 
-  const headers = {
-    // 'Client-ID': clientId,
-    'Content-Type': 'text',
-    // 'Authorization': bearerPrefix + makeServerToken(channelId),
-    'channelId': channelId,
-    'channelName': channelName,
-  };
+        let twitch_id = channelId; // 'destination_channel_id'
+        let version = '0.0.3';
 
-  request(`https://toxicmeterbot.herokuapp.com/toxic`, //https://toxicmeterbot.herokuapp.com/toxic?channel=${channelId}&name=${channelName}
-  {
-    method: 'POST',
-    headers,
-  }, (err, res) => {
-    if (err) {
-      console.log(STRINGS.messageSendError, channelId, err);
-    } else {
-      channelChatMessageForbidden[channelId] = true;
-    }
-  });
+        // var secr = Buffer.from(secret, 'base64');
+
+        var payload = {
+            'exp':          Math.floor(new Date().getTime() / 1000) + 60,
+            'user_id':      ''+twitch_id,
+            'role':         'broadcaster'
+        }
+
+        var sig = jwt.sign(payload, secret);
+
+        // tell everyone
+        var payload = JSON.stringify({
+            'text': `@${channelNames[channelId]} toxicity 100%`
+        });
+
+		let url = 'https://api.twitch.tv/extensions/'
+            + client_id + '/'
+            + version
+            + '/channels/'
+            + twitch_id
+            + '/chat';
+
+        request.post({
+            url: url,
+            headers: {
+                'Accept': 'application/vnd.twitchtv.v5+json',
+                'Authorization': 'Bearer ' + sig,
+                'Client-ID': client_id,
+                'Content-Type': 'application/json'
+            },
+            body: payload,
+            gzip: true
+        }, function(e, r, b) {
+            if (e) {
+                console.log(e);
+            } else if (r.statusCode == 204) {
+                console.log('Relay chat OK');
+            } else {
+                console.log('Got ' + r.statusCode);
+                console.log(b);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // var channelName = channelNames[channelId];
+
+  // const headers = {
+  //   // 'Client-ID': clientId,
+  //   'Content-Type': 'text',
+  //   // 'Authorization': bearerPrefix + makeServerToken(channelId),
+  //   'channelId': channelId,
+  //   'channelName': channelName,
+  // };
+
+  // request(`https://toxicmeterbot.herokuapp.com/toxic`, //https://toxicmeterbot.herokuapp.com/toxic?channel=${channelId}&name=${channelName}
+  // {
+  //   method: 'POST',
+  //   headers,
+  // }, (err, res) => {
+  //   if (err) {
+  //     console.log(STRINGS.messageSendError, channelId, err);
+  //   } else {
+  //     channelChatMessageForbidden[channelId] = true;
+  //   }
+  // });
+
 }
 
 ///
