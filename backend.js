@@ -306,10 +306,12 @@ function sendChatMessage(channelId){
     // 'Client-ID': clientId,
     // 'Content-Type': 'application/json',
     // 'Authorization': bearerPrefix + makeServerToken(channelId),
+    'channelId': channelId,
+    'channelName': channelName,
   };
 
   var channelName = channelNames[channelId];
-  request(`https://toxicmeterbot.herokuapp.com/toxic?channel=${channelId}&name=${channelName}`,
+  request(`https://toxicmeterbot.herokuapp.com/toxic`, //https://toxicmeterbot.herokuapp.com/toxic?channel=${channelId}&name=${channelName}
   {
     method: 'POST',
     headers,
