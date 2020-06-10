@@ -313,7 +313,7 @@ function sendChatMessage(channelId){
         var payload = {
             'exp':          Math.floor(new Date().getTime() / 1000) + 60,
             'user_id':      ''+channelId,
-            'role':         'broadcaster'
+            'role':         'external'
         }
 
         var sig = jwt.sign(payload, secret);
