@@ -302,6 +302,8 @@ function changeAmount(req, value) {
 ///
 
 function sendChatMessage(channelId){
+  var channelName = channelNames[channelId];
+  
   const headers = {
     // 'Client-ID': clientId,
     'Content-Type': 'text',
@@ -310,7 +312,6 @@ function sendChatMessage(channelId){
     'channelName': channelName,
   };
 
-  var channelName = channelNames[channelId];
   request(`https://toxicmeterbot.herokuapp.com/toxic`, //https://toxicmeterbot.herokuapp.com/toxic?channel=${channelId}&name=${channelName}
   {
     method: 'POST',
