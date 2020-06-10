@@ -27,6 +27,9 @@ function localUpdateLine() {
         var stringified = JSON.stringify(data);
         var obj = JSON.parse(stringified);
         var amount = obj[channelId] || 0;
-        $(".progress .water").css("top", 100 - amount + "%");
+        // $(".progress .water").css("top", 100 - amount + "%");
+        $(".progress .water").animate({ top: 100 - amount + "%"}, 'easeInOutCubic', function(){ 
+            /* animation comlete */ 
+        });
     });
 }
