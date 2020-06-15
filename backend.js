@@ -456,24 +456,9 @@ function sendAmountBroadcast(channelId) {
         console.log(STRINGS.messageSendError, channelId, err);
       } else {
         var stream = JSON.parse(res.body)["stream"];
+        var error = JSON.parse(res.body)["error"] || null;
         
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        console.log(channelId)
-        console.log(res.body)
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        console.log("----------------------------------------")
-        if(stream !== null){
+        if(stream !== null && error == null){
           vievewsCounts[channelId] = JSON.parse(res.body)["stream"].viewers;
         }
         else{
