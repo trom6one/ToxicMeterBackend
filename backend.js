@@ -455,24 +455,28 @@ function sendAmountBroadcast(channelId) {
       if (err) {
         console.log(STRINGS.messageSendError, channelId, err);
       } else {
-
-        if (/^[\],:{}\s]*$/.test(res.body.replace(/\\["\\\/bfnrtu]/g, '@').
-        replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
-        replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+        // var text = res.body;
+        if(isJson(res.body)){
           if(stream !== null && error == null){
             vievewsCounts[channelId] = JSON.parse(res.body)["stream"].viewers;
           }
-          else{
-            // verboseLog("stream == null");
-          }
-        }else{
+        }  
+        // if (/^[\],:{}\s]*$/.test(text.replace(/\\["\\\/bfnrtu]/g, '@').
+        // replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+        // replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) 
+        // {
+          
+        //   else{
+        //     // verboseLog("stream == null");
+        //   }
+        // }else{
         
-          console.log("--------------------------------------");
-          console.log(res.body);
-          console.log("--------------------------------------");
-          var stream = JSON.parse(res.body)["stream"];
-          var error = JSON.parse(res.body)["error"] || null;
-        }
+        //   console.log("--------------------------------------");
+        //   console.log(res.body);
+        //   console.log("--------------------------------------");
+        //   var stream = JSON.parse(res.body)["stream"];
+        //   var error = JSON.parse(res.body)["error"] || null;
+        // }
 
 
         
@@ -481,6 +485,16 @@ function sendAmountBroadcast(channelId) {
       }
     });
 }
+
+function isJson(str) {
+  try {
+      JSON.parse(str);
+  } catch (e) {
+      return false;
+  }
+  return true;
+}
+
 
 ///
 ///
