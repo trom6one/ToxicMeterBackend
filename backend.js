@@ -455,6 +455,9 @@ function sendAmountBroadcast(channelId) {
       if (err) {
         console.log(STRINGS.messageSendError, channelId, err);
       } else {
+        console.log("--------------------------------------");
+        console.log(res.body);
+        console.log("--------------------------------------");
         var stream = JSON.parse(res.body)["stream"];
         var error = JSON.parse(res.body)["error"] || null;
         
