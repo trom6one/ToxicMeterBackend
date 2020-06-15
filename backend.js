@@ -457,6 +457,8 @@ function sendAmountBroadcast(channelId) {
       } else {
         // var text = res.body;
         if(isJson(res.body)){
+          var stream = JSON.parse(res.body)["stream"];
+          var error = JSON.parse(res.body)["error"] || null;
           if(stream !== null && error == null){
             vievewsCounts[channelId] = JSON.parse(res.body)["stream"].viewers;
           }
@@ -474,8 +476,6 @@ function sendAmountBroadcast(channelId) {
         //   console.log("--------------------------------------");
         //   console.log(res.body);
         //   console.log("--------------------------------------");
-        //   var stream = JSON.parse(res.body)["stream"];
-        //   var error = JSON.parse(res.body)["error"] || null;
         // }
 
 
