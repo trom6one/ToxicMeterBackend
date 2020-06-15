@@ -455,18 +455,27 @@ function sendAmountBroadcast(channelId) {
       if (err) {
         console.log(STRINGS.messageSendError, channelId, err);
       } else {
-        console.log("--------------------------------------");
-        console.log(res.body);
-        console.log("--------------------------------------");
-        var stream = JSON.parse(res.body)["stream"];
-        var error = JSON.parse(res.body)["error"] || null;
+
+        if (/^[\],:{}\s]*$/.test(res.body.replace(/\\["\\\/bfnrtu]/g, '@').
+        replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+        replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+          if(stream !== null && error == null){
+            vievewsCounts[channelId] = JSON.parse(res.body)["stream"].viewers;
+          }
+          else{
+            // verboseLog("stream == null");
+          }
+        }else{
         
-        if(stream !== null && error == null){
-          vievewsCounts[channelId] = JSON.parse(res.body)["stream"].viewers;
+          console.log("--------------------------------------");
+          console.log(res.body);
+          console.log("--------------------------------------");
+          var stream = JSON.parse(res.body)["stream"];
+          var error = JSON.parse(res.body)["error"] || null;
         }
-        else{
-          // verboseLog("stream == null");
-        }
+
+
+        
         
         // verboseLog(STRINGS.responseChanelViewers, vievewsCounts[channelId], channelId);
       }
