@@ -75,7 +75,7 @@ const ownerId = 'trom666one';
 const secret = Buffer.from('//pilJ5gU4baX2atR1gx+o2zhdqXVqMC8eDwHFiLbII=', 'base64');
 const clientId = 'cu6xkebsgerd6ikki3cq08ov1koygc';
 
-const extVersion = '0.0.2';
+const extVersion = '0.0.3';
 
 ///
 ///
@@ -172,9 +172,10 @@ app.post('/fill/demount', function(req, res) {
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 
-  initDataSaveTimer(10000);
+  //initDataSaveTimer(10000);
 });
 
+/*
 async function initDataSaveTimer(ms) {
   await sleepDataSaveTimer(parseInt(ms));
 
@@ -210,7 +211,7 @@ function sleepDataSaveTimer(ms) {
     setTimeout(resolve, ms);
   });
 }   
-
+*/
 ///
 
 setInterval(() => { userCooldowns = {}; }, userCooldownClearIntervalMs);
@@ -302,11 +303,12 @@ function changeAmount(req, value) {
 ///
 ///
 
+// TODO переделать с учетом makeServerToken
+
 function sendChatMessage(channelId){
 // https://api.twitch.tv/extensions/<client ID>/<extension version>/channels/<channel ID>/chat
 
         // let twitch_id = channelId; // 'destination_channel_id'
-        let version = '0.0.3';
 
         // var secr = Buffer.from(secret, 'base64');
 
@@ -325,7 +327,7 @@ function sendChatMessage(channelId){
 
 		let url = 'https://api.twitch.tv/extensions/'
             + clientId + '/'
-            + version
+            + extVersion
             + '/channels/'
             + channelId
             + '/chat';
@@ -454,6 +456,23 @@ function sendAmountBroadcast(channelId) {
         console.log(STRINGS.messageSendError, channelId, err);
       } else {
         var stream = JSON.parse(res.body)["stream"];
+        
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
+        console.log(channelId)
+        console.log(res.body)
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
+        console.log("----------------------------------------")
         if(stream !== null){
           vievewsCounts[channelId] = JSON.parse(res.body)["stream"].viewers;
         }
